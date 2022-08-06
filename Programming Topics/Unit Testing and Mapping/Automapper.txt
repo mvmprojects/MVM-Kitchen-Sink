@@ -1,0 +1,39 @@
+// Automapper can be added to your service provider, such as in a Startup.cs file, and be told where to get the Profiles.
+            // AddAutoMapper really wants to know where you placed your Profiles, so if you ever move
+            // the Profiles folder to another project then this line will fail.
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// example of using an Automapper profile, to do mapping when the names of properties don't quite match up
+
+    public class AlbumsProfile : Profile
+    {
+        public AlbumsProfile()
+        {
+            CreateMap<AlbumModel, Dtos.AlbumDto>()
+                .ForMember(
+                    destinationMember => destinationMember.ArtistName,
+                    memberOption => memberOption.MapFrom(src => src.Artist.Name));
+        }
+    }
+
+// more complex example, where Automapper does a time conversion on a "Duration" property (because the DTO has Minutes and Seconds)
+
+    public class TracksProfile : Profile
+    {
+        public TracksProfile()
+        {
+            CreateMap<TrackModel, Dtos.TrackDto>()
+                .ForMember(
+                    destinationMember => destinationMember.Minutes,
+                    memberOptions => memberOptions.MapFrom(src => src.Duration / 60000))
+                .ForMember(
+                    destinationMember => destinationMember.Seconds,
+                    memberOptions => memberOptions.MapFrom(src => (src.Duration % 60000) / 1000));
+
+            CreateMap<Dtos.TrackDto, TrackModel>()
+                .ForMember(
+                destinationMember => destinationMember.Duration,
+                memberOptions => memberOptions.MapFrom(
+                    src => (src.Minutes * 60000) + (src.Seconds * 1000)));
+        }
+    }
