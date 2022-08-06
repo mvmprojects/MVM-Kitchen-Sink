@@ -1,0 +1,65 @@
+Code sample of a generic repository in EF.
+
+The repository uses a generic type constraint, as well as an interface to identify "Id" as a property:
+
+    public class Repository<T> : IRepository<T> where T : class, IEntity
+    {
+        private DataContext _context;
+
+        public Repository(DataContext context)
+        {
+            _context = context;
+        }
+
+        public T Create(T entity)
+        {
+            _context.Set<T>().Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public IQueryable<T> GetAll()
+        {
+            return _context.Set<T>();
+        }
+
+        public T GetById(int id)
+        {
+            return _context.Set<T>().SingleOrDefault(x => x.Id == id);
+        }
+
+        public void Delete(int id)
+        {
+            _context.Set<T>().Remove(GetById(id));
+            _context.SaveChanges();
+        }
+    }
+
+The IRepository interface:
+
+    public interface IRepository<T> where T : class
+    {
+        IQueryable<T> GetAll();
+        T GetById(int id);
+        T Create(T entity);
+        void Delete(int id);
+    }
+
+The IEntity interface:
+
+    public interface IEntity
+    {
+        int Id { get; set; }
+    }
+
+Remember to actually use the interface on the entities that the repository will be handling:
+
+    public class MyEntity : IEntity
+    { (...) }
+
+When using dependency injection with a generic repo, do the following (see last line):
+
+            var serviceProvider = new ServiceCollection()
+                .AddDbContext<DataContext>()
+                .AddScoped<IMyService, MyService>()
+                .AddScoped(typeof(IRepository<>), typeof(Repository<>))

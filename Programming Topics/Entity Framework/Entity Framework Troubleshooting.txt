@@ -1,0 +1,16 @@
+Package Manager Console errors
+
+Reference error asking for .Design when EF Tools are not installed in the startup project (because you placed your context class elsewhere):
+
+	Your startup project 'Phoneshop.WinForms' doesn't reference Microsoft.EntityFrameworkCore.Design. This package is required for the Entity Framework Core Tools to work. Ensure your startup project is correct, install the package, and try again.
+
+Try this: 
+https://obscureproblemsandgotchas.com/development/c/dotnet-core-ef-migration-not-working/
+
+Success:
+		<!--deactivated the PrivateAssets line to overcome PMC error complaining about startup proj not referencing EntityFrameworkCore.Design-->
+      <!--<PrivateAssets>all</PrivateAssets>-->	
+
+Apparently not needed:
+	  <!--added to overcome PMC error complaining about startup proj not referencing EntityFrameworkCore.Design-->
+	  <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>

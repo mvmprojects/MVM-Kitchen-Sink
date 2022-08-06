@@ -1,0 +1,14 @@
+You can call a constructor from another constructor within the same class, using "this":
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-constructors
+
+// ctor 1 has a single parameter
+public Employee(int annualSalary)
+{
+    Salary = annualSalary;
+}
+
+// ctor 2 just calls ctor 1
+public Employee(int weeklySalary, int numberOfWeeks)
+    : this(weeklySalary * numberOfWeeks)
+{
+}

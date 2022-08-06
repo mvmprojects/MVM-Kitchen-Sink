@@ -1,0 +1,13 @@
+Removing whitespace from an XML document:
+
+	var regex = new Regex(@"[\s]+(?![^><]*(?:>|<\/))");
+	var cleanedXml = regex.Replace(xml, "");
+
+https://stackoverflow.com/questions/1231374/how-to-remove-whitespace-from-an-xmldocument
+https://stackoverflow.com/questions/25771405/how-do-i-remove-all-excess-whitespace-from-an-xml-string-using-coldfusion/25771445#25771445
+http://regex101.com/r/rO9iN0/2
+
+Simplified:
+	// replace excessive whitespace with a single space character
+	// ( combine with .Trim() later )
+	string clean = Regex.Replace(doc, @"\s+", " ");

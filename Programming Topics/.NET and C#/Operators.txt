@@ -1,0 +1,31 @@
+The ?? operator is called the null coalescing operator. 
+
+            Entity result = _repo.GetById(id);
+
+            return result ?? new Entity() { Name = "unknown" };
+
+It is right-associative, so "a ?? b ?? c" is evaluated as "a ?? (b ?? c)"
+
+////////////////////////////////////////////////////////////////////////////////////
+
+The unary postfix "!" operator is the null-forgiving, or null-suppression, operator.
+
+[TestMethod, ExpectedException(typeof(ArgumentNullException))]
+public void NullNameShouldThrowTest()
+{
+    var person = new Person(null!);
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+Use () to invoke a delegate, like a method.
+
+Action<int> display = s => Console.WriteLine(s);
+
+var numbers = new List<int>();
+numbers.Add(10);
+numbers.Add(17);
+display(numbers.Count);   // output: 2
+
+numbers.Clear();
+display(numbers.Count);   // output: 0
