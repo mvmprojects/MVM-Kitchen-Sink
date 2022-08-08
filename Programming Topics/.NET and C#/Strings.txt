@@ -1,0 +1,17 @@
+You can use string.IsNullOrEmpty(<some string property>) for validation purposes.
+In addition, you can use the ? : ternary operator in the middle of a .WriteLine() string, to add more info.
+
+        public Phone CreatePhone(Phone phone)
+        {
+            bool noType = string.IsNullOrEmpty(phone.Type);
+            bool noBrand = string.IsNullOrEmpty(phone.Brand?.Name);
+
+            if (noType || noBrand)
+            {
+                Console.WriteLine("Phone missing data: " +
+                $"{(noType ? " No type found." : "")}" +
+                $"{(noBrand ? " No brand found." : "")}");
+                return phone;
+            }
+
+	(...)
