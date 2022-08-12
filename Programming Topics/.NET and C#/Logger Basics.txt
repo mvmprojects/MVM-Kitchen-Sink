@@ -1,0 +1,102 @@
+install microsoft.extensions.logging and microsoft.extensions.logging.debug
+
+in Program.cs, prepare dependency injection for logging and "MovieService":
+
+        static void Main(string[] args)
+        {
+            var serviceProvider = new ServiceCollection()
+                .AddLogging(logging =>
+                {
+                    logging.AddDebug();
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                })
+                .AddScoped<IMovieService, MovieService>()
+                .BuildServiceProvider();
+
+	(...)
+
+in MovieService, inject the logger in the constructor and set its own class as the "worker":
+
+        private ILogger<MovieService> _logger;
+        public MovieService(ILogger<MovieService> logger)
+        {
+            _logger = logger;
+        }
+
+	(...)
+
+        public List<Movie> GetAll()
+        {
+            _logger.LogInformation("Using GetAll()");
+            return _movies;
+        }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+basic file logger (configurable log level not yet included) made from scratch
+
+interface:
+
+    public interface IBasicLogger
+    {
+        void LogDebug(string message);
+        void LogError(string message);
+        void LogInfo(string message);
+        void LogWarning(string message);
+    }
+
+class:
+
+    public class BasicFileLogger : IBasicLogger
+    {
+        private string _path = string.Empty;
+
+        public BasicFileLogger()
+        {
+            _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + "log.txt";
+            AddToFile("Starting new log file");
+        }
+
+        private void AddToFile(string message)
+        {
+            using (StreamWriter writer = File.AppendText(_path))
+            {
+                writer.Write("\r\n" + message);
+                writer.WriteLine(" - {0} {1}", DateTime.Now.ToLongTimeString(),
+                                DateTime.Now.ToLongDateString());
+            }
+        }
+
+        public void LogDebug(string message)
+        {
+            AddToFile("Debug: " + message);
+        }
+
+        public void LogError(string message)
+        {
+            AddToFile("Error: " + message);
+        }
+
+        public void LogInfo(string message)
+        {
+            AddToFile("Information: " + message);
+        }
+
+        public void LogWarning(string message)
+        {
+            AddToFile("Warning: " + message);
+        }
+    }	
+
+adding to servicecollection:
+
+	.AddScoped<IBasicLogger, BasicFileLogger>()
+
+injecting:
+
+	private readonly IBasicLogger _logger;
+(in constructor)	
+	_logger = logger;
+
+basic usage:
+	_logger.LogInfo($"Using search with query: {query}");

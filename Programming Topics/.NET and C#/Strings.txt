@@ -15,3 +15,10 @@ In addition, you can use the ? : ternary operator in the middle of a .WriteLine(
             }
 
 	(...)
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+The old-fashioned method of using string interpolation might still appear on loggers.
+
+            string tst = "test";
+            _logger.LogInformation("Using old interpolation {tst}", tst);
