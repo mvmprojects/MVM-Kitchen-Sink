@@ -1,0 +1,41 @@
+BUILD OPTIONS
+
+What is the difference between Build, Rebuild and Clean?
+
+https://stackoverflow.com/questions/3095901/difference-between-build-solution-rebuild-solution-and-clean-solution-in-visua
+
+Build Solution will not rebuild a project unless deemed necessary. Build will check if files have changed, then clean all projects with changed files and THEN build all those changed projects.
+	AKA: /Build (devenv.exe)
+	See: https://docs.microsoft.com/en-us/visualstudio/ide/reference/build-devenv-exe?view=vs-2022
+
+Clean Solution will remove build artifacts from the previous build, so all compiled files. Users on stack overflow tend to complain that Clean will miss some things, so it might be necessary to double-check files.
+	AKA: /Clean (devenv.exe)
+	See: https://docs.microsoft.com/en-us/visualstudio/ide/reference/clean-devenv-exe?view=vs-2022
+
+Rebuild Solution will clean and then build, but this behaves differently from simply doing Clean Solution and then Build Solution; Rebuild will clean-and-build each project, one at a time, rather than cleaning all and then building all. It also does not check if files have been changed.
+	AKA: /Rebuild (devenv.exe)
+	See: https://docs.microsoft.com/en-us/visualstudio/ide/reference/rebuild-devenv-exe?view=vs-2022
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+KEY COMBINATIONS
+
+Navigation to windows
+ctrl + alt + l = go to solution explorer
+ctrl + 0, g = go to git explorer
+ctrl + \, e = error window
+ctrl + K, W = bookmark window
+ctrl + \, t =  task window ( add tasks with // TODO )
+
+Navigation to lines
+ctrl + g = go to line number
+ctrl + - = go back to last file or cursor position
+ctrl + shift + - = go forward (after going back to last cursor position)
+F8 = go to first error/warning in error window (if any)
+
+Bookmarks
+ctrl + k, k = add bookmark
+ctrl + k, p = go to bookmark
+ctrl + k, l = clear bookmarks
+ctrl + K, h = add shortcut to task window
+(to remove a task shortcut, you need to be on top of it and then use Edit -> Bookmarks -> Remove Task List Shortcut)
