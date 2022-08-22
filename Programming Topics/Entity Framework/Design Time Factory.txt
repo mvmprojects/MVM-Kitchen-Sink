@@ -1,3 +1,6 @@
+(note 1: the following sample and comments are from .NET Core 3.1 and might be outdated)
+(note 2: fetching the file path works differently when running an ASP.NET Core web app - copy-pasting the code below into a different type of app will not work as expected)
+
 public class CaseContext : DbContext
     {
         public CaseContext(DbContextOptions<CaseContext> options)

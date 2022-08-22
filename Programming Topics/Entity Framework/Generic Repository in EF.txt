@@ -1,6 +1,6 @@
 Code sample of a generic repository in EF.
 
-The repository uses a generic type constraint, as well as an interface to identify "Id" as a property:
+The repository uses a generic type constraint, as well as an IEntity interface to identify "Id" as a property:
 
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {

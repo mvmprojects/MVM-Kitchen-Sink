@@ -33,9 +33,9 @@ in MovieService, inject the logger in the constructor and set its own class as t
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-basic file logger (configurable log level not yet included) made from scratch
+Basic file logger (configurable log level not yet included) made from scratch.
 
-interface:
+Interface:
 
     public interface IBasicLogger
     {
@@ -45,7 +45,7 @@ interface:
         void LogWarning(string message);
     }
 
-class:
+Class:
 
     public class BasicFileLogger : IBasicLogger
     {
@@ -88,15 +88,15 @@ class:
         }
     }	
 
-adding to servicecollection:
+Adding to servicecollection:
 
 	.AddScoped<IBasicLogger, BasicFileLogger>()
 
-injecting:
+Injecting:
 
 	private readonly IBasicLogger _logger;
 (in constructor)	
 	_logger = logger;
 
-basic usage:
+Basic usage:
 	_logger.LogInfo($"Using search with query: {query}");

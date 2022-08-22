@@ -1,0 +1,23 @@
+Example of pattern matching in a switch statement (C# 7.0):
+
+switch(person)
+{
+	case CEO ceo:
+	CallCeo(ceo);
+	break;
+	
+	case Manager salesManager when (salesManager.Department == “Sales”):
+	CallSalesManager(salesManager);
+	break;
+	
+	case Manager other:
+	CallManager(other);
+	break;
+	
+	default:
+	WriteLine(“Standard employee”);
+	break;
+	
+	case null:
+	throw new ArgumentNullException(nameof(person));
+}

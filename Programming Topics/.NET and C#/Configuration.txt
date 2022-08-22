@@ -1,0 +1,26 @@
+Add extra configuration via dependency injection.
+(requires: using Microsoft.Extensions.Configuration; and using Microsoft.Extensions.DependencyInjection;)
+
+In Program.cs of an ASP.NET web api project:
+    // pagination settings
+    var pageSettings = builder.Configuration.GetSection("AppSettings").Get<PageSettings>();
+    builder.Services.AddScoped<PageSettings>(_ => pageSettings);
+
+In the domain project:
+    public class PageSettings
+    {
+        public int NumItems { get; set; }
+    }
+
+In appsettings.Development.json in the api project folder, add a line for PageSettings:
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft.AspNetCore": "Warning"
+        }
+      },
+      "PageSettings": { "NumItems": 10 }
+    }
+
+Finally, inject PageSettings via service constructor.

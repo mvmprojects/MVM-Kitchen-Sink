@@ -6,7 +6,7 @@ This is not actually a demo, but a collection of notes and code samples. A more 
 
 ### .NET and C#
 
-Special operators
+Samples, special types and operators
 
 ### Angular and node
 

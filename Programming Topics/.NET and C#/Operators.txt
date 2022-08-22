@@ -1,3 +1,9 @@
+Instead of setting a type as nullable with ?, you can do the opposite and set non-nullable types with !.
+
+	string! nonNullableString;
+
+////////////////////////////////////////////////////////////////////////////////////
+
 The ?? operator is called the null coalescing operator. 
 
             Entity result = _repo.GetById(id);

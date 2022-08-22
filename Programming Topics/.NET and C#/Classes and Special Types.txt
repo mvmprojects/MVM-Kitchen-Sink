@@ -1,0 +1,29 @@
+You can call a constructor from another constructor within the same class, using "this":
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-constructors
+
+// constructor 1 has a single parameter
+public Employee(int annualSalary)
+{
+    Salary = annualSalary;
+}
+
+// constructor 2 just calls constructor 1
+public Employee(int weeklySalary, int numberOfWeeks)
+    : this(weeklySalary * numberOfWeeks)
+{
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TUPLES
+
+A method signature with the tuple return type can have clear names for values, if you use the right syntax.
+
+Old typle syntax:
+	public Tuple<string, string> LoadPerson(){}
+
+Tuple syntax added in C# 7.0:
+	public (string firstName, string lastName) LoadPerson(){};
+
+Creating a tuple inline:
+	return new (string firstName, string lastName) { firstName = “Kevin”, lastName = “Griffin”};

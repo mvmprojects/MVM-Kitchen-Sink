@@ -16,6 +16,12 @@ Rebuild Solution will clean and then build, but this behaves differently from si
 	AKA: /Rebuild (devenv.exe)
 	See: https://docs.microsoft.com/en-us/visualstudio/ide/reference/rebuild-devenv-exe?view=vs-2022
 
+Note from Scott Hanselman's blog:
+
+"Remember: You never want to use dotnet run in production! It's an SDK building command! You'll want to use dotnet exec your.dll, dotnet your.dll, or best of all, in .NET 6 just call the EXE directly! .\bin\Debug\net6.0\wshotreloadtest.exe in my example. Why? dotnet run will always assume it's in Development (you literally tell it to restore, build, and exec in one run command) if you run it. You'll note that running the actual EXE is always WAY faster as well! Don't ship your .NET SDK to your webserver and don't recompile the whole thing on startup in production!"
+
+https://www.hanselman.com/blog/net-6-hot-reload-and-refused-to-connect-to-ws-because-it-violates-the-content-security-policy-directive-because-web-sockets
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 KEY COMBINATIONS

@@ -1,5 +1,0 @@
-quick way to get and use a path:
-
-	_path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + "log.txt";
-
-results will be created/updated in MySolution\MyProject\bin\Debug\net6.0

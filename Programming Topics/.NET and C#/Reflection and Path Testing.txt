@@ -1,0 +1,33 @@
+Quick way to get and use a path:
+
+	_path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + "log.txt";
+
+Results will be created/updated in MySolution\MyProject\bin\Debug\net6.0
+
+WARNING: paths work differently in an ASP.NET Core web application. The working directory for the web app is set to the project folder. Meanwhile, a console app points to its output folder (in \bin\ etc, see above).
+
+So the following code:
+
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile(
+                @Directory.GetCurrentDirectory() +  (...)  );
+
+...behaves differently when an ASP.NET Core web app is the startup project.
+
+So what if you have two startup projects in one solution, one console and one web app, and you want to be able to tell which one is running to correct the path? 
+
+One possible (but obscure) way to check this is to use the following:
+	Path.GetFileName(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile)
+And then check if this config file is for a web app (web.config).
+https://stackoverflow.com/a/3179933
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Working out where things are running from.
+https://www.hanselman.com/blog/how-do-i-find-which-directory-my-net-core-console-application-was-started-in-or-is-running-from
+
+            Console.WriteLine($"Launched from {Environment.CurrentDirectory}");
+            Console.WriteLine($"Physical location {AppDomain.CurrentDomain.BaseDirectory}");
+            Console.WriteLine($"AppContext.BaseDir {AppContext.BaseDirectory}");
+            Console.WriteLine($"Runtime Call {Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName)}");
