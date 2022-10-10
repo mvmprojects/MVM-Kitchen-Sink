@@ -1,0 +1,167 @@
+=====
+AZURE
+=====
+
+The Azure portal can be viewed on any browser and hence can be viewed on almost any operating system. The Azure CLI is available on all platforms.
+
+---------------------
+Azure Cloud concepts
+
+IaaS use cases:
+-temporary high performance computing.
+-testing an application during release.
+(current state of the OS is always known to you - cloud provider is not going to install/change anything.)
+-only pay for resources in use, keeping configuration in the cloud but stopping the VM when you don't need it.
+-you get to choose when the VM is updated.
+note: requires you to update your own OS, close your own ports and generally protect your own server.
+
+PaaS use cases:
+-when quickly moving on-premises applications to the cloud.
+-need to run a web app that needs a specific framework running (such as PHP) and you don't want to manage and configure this on the VM.
+-don't have to worry about docker installation or configuration as it's included on all App Service VMs by default.
+-backing up and restoring data tend to be more user-friendly and feature-rich in PaaS, because of custom software already installed by the cloud provider.
+
+PaaS example services:
+	Azure CDN
+	Azure Cosmos DB
+	Azure SQL Database
+	Azure Database for MySQL
+	Azure Storage
+	Azure Synapse Analytics
+
+SaaS use cases:
+-ready-to-go software that works from just about any device
+-cloud provider takes care of availability, backups and patches
+-you don't have to know anything about the software or about the patches
+
+---------------------
+Azure Storage concepts
+
+azure storage services: 
+blob storage - unstructured data like files and documents
+file storage - supports SMB protocol and can be attached to network drives
+disk storage - stores the VM disks as used by IaaS VMs
+table storage - store (semi-)structered data in the form of NoSQL non-relational data
+queue storage - store/retrieve messages for async applications that pass messages
+
+account types:
+general purpose v2 - blobs (binary large object), files, tables, queues - most redundancy options
+premium block blob - best for high transaction rates or low storage latency
+premium file share - best for enterprise/high performance applications that need to scale
+premium page blob - larger blobs - best for random read and write operations
+note: all premium account types use solid state drives.
+note: you can't change the storage account type after it's been created.
+
+categories of redundancy options:
+
+-Redundancy in primary region - LRS and ZRS
+-Redundancy in a secondary region - GRS or GZRS
+-Read access to the secondary region when using GRS or GZRS (normally not available until a failover)
+
+data redundancy options:
+
+-LRS - Locally-redundant storage - the cheapest option - protection against server-rack and drive failures
+-ZRS - Zone-redundant storage - recommended for high availability - protection against datacenter-level failures
+-GRS - Geo-redundant storage - recommended for backups - failover capabilities in a secondary region (works even if the entire primary region is harmed by a regional disaster). you cannot choose the secondary region as this is decided by microsoft. paired regions are listed online.
+-GZRS - Geo-zone-redundant storage - offers the protection of both GRS and ZRS.
+
+Blob access tiers:
+
+hot tier - lowest data access cost, highest storage cost
+cool tier - low storage cost, higher data access cost
+archive tier - lowest storage cost, highest data retrieval cost
+
+you can move data between access tiers via the feature known as Blob Lifecycle Management, setting policies for moving between tiers, because aged data is less likely to see frequent data access and should be treated accordingly.
+
+Blob types: 
+block blob - composed of blocks so that it is optimized for uploading - most cost-effective way to store a large number of files
+append blob - can only append blocks - optimized for appending data which is ideal for logs
+page blob - made for frequent random read/write - used to store disks for virtual machines and databases
+
+Data Transfer Options
+
+data transfer considerations: amount of data, frequency of data transfer, available network bandwidth
+
+online options for data transfer:
+Azure Portal - as seen in the videos etc.
+Azure Storage Explorer - with easy GUI similar to File Explorer, so tasks can be delegated to business users. uses AzCopy behind the scenes.
+AzCopy - command line tool that can be used to upload and manage data, and can be used to change access tiers from hot to cool etc.
+PowerShell
+Azure CLI
+Storage Client Libraries (SDKs)
+Azure File Sync - to extend on-premises data to Azure. frequently accessed data is kept on premises and less-frequently used data is automatically stored on Azure.
+
+Azure Migrate
+
+- can assess your on-premises and virtual servers for migration compatibility
+- can assess on-premises SQL Server instances - can then migrate to SQL running on a VM, to an Azure SQL Database, or an Azure SQL Managed Instance
+- can assess web applications running on-premises and then migrate them to run on Azure App service or Azure Kubernetes service
+- with the Data Box service, you can migrate a large amount of unstructered data offline
+- can also assess your on-premises virtual machine infrastructure and then migrate that to Azure Virtual Desktop
+
+Azure Migrate tools:
+- Discovery and Assessment Tool - assess migration readiness - estimate size and cost of Azure servers - identify dependencies - virtual appliance is installed locally to do the assessment
+- Server Migration Tool - actually replicates the servers to Azure - replication app is installed locally, mobility service agent is installed on the server - incremental updates after initial migration
+
+for migrating on-premises SQL Server databases:
+- Data Migration Assistant - detects compatibility issues with the cloud - recommends improvements
+- Azure Database Migration Service - for large database migrations 
+--- both of the db tools above can target SQL servers in VMs, Azure SQL Database, or Azure SQL Managed Instances
+
+---------------------
+Azure Management & Monitoring concepts
+
+- Azure Resource Manager (ARM) is central to all of Azure Management. When using Azure Portal, you're really just using a website that is sending requests to the ARM endpoint. ARM handles authentication via Azure Active Directory (Azure AD), and then sends a request on to the Azure Service that you want to create or manipulate.
+- You can also interact with ARM via the Azure CloudShell which includes Azure Powershell and Azure CLI.
+- There is also an Azure Mobile App to create/manage resources and receive alerts via ARM.
+- Azure SDKs allow you to call ARM endpoints, so you can turn Azure management into a custom solution.
+
+Azure Resource Manager templates allow you to create resources in a repeatable way.
+
+Azure Service Health keeps you informed about the health of your cloud resources. This includes information about current and upcoming issues such as outages and planned maintenance.
+
+This is divided up into three parts:
+- Azure Status - Service outages across all of Azure
+- Service Health - Service health of services and regions that you actually use. Includes planned maintenance, Health Advisories and Security Advisories. In the menu blade Service issues you can add resource health alerts.
+- Resource Health - Health of specific resources
+
+Azure Monitor is a service that collects metrics and logs from the resources in your subscription. You can use it to check the performance and availability of your apps and services. Azure Monitor comes with Metrics Explorer and Log Analytics. Also included in Monitor is the service called Application Insights, which monitors availability, usage and performance of your web apps. For even deeper monitoring you can use the Application Insights SDK from inside your code.
+
+You can collect data from virtual machines running outside of Azure by installing agents.
+
+----------------------------------------
+
+sample exam questions
+
+Q: Does MS provide a separate portal for Azure portal specific previews? 
+A: Yes.
+
+Q: A company wants to store data that is infrequently used. It needs to be accessed via Power BI. What could be a cost-effective data layer for this requirement?
+Options: Azure SQL db, Azure PostgreSQL, Azure Cosmis DB, Azure Data Lake
+Answer: Option D: Azure Data Lake. The other options should be used for frequently accessed data.
+
+Q: A company needs 50 custom VMs. 20 are windows-based and 30 are ubuntu. Which option would reduce administrative effort?
+Options: Azure Load Balancer, Azure Web Apps, Azure Traffic Manager, Azure Scalesets.
+Answer: Option D: Azure ScaleSets. the other options are incorrect because Load Balancer is for diverting traffic to back-end VMs at the network layer. Web Apps is for hosting web apps. Traffic Manager is used for DNS-based traffic routing.
+
+Q: A company wants to enforce Mult-factor authentication for users entering Azure. Which option lets them do this?
+Options: Azure Service Trust Portal, Azure Security Centre, Azure DDoS Protection, Azure privileged identity management
+Answer: Options D: Azure privileged identity management. Trust portal is for information on compliance with data protection standards and regulatons. Security Centre is a unified infrastructure security management system in Azure.
+
+Q: A company wants to host 2 VMs in Azure. When the VM is stopped, do you still incur costs for the storage attached to the VM?
+A: Yes. Turning the VM off only helps to avoid storage transaction costs. The disk(s) will also incur monthly costs.
+
+Q: Can you create VMs in Azure if you run a powershell script on a Linux machine, with Azure CLI tools installed?
+A: No. You also need Powershell Core installed to run powershell scripts on Linux.
+
+Q: A company is planning to host resources in Azure. They want to ensure Azure complies with the rules and regulations in the region. Which option can assist the company in getting the required compliance reports?
+Options: Azure AD, Microsoft Trust Center, Azure Advisor, Azure Security Centre
+Answer: Option B: Microsoft Trust Center. Azure AD is for identity management. Azure Advisor is for recommendations in Azure.
+
+Q: The company has just deployed a VM and needs to know if it is having any issues. Which option will let you view such issues?
+Options: Azure Advisor, Azure AD, A Virtual Machine menu blade, Azure Monitor
+Answer: The VM blade called resource health. Azure Monitor is for showing the health of your entire Azure infrastructure.
+
+Q: What feature of a system makes it elastic?
+Options: Self-healing after a crash, withstanding DDoS attacks, staying available while updates are being made to the system, increasing and reducing capacity based on actual demand.
+Answer: Option D: Increasing and reducing capacity based on actual demand.

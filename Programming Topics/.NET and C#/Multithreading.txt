@@ -1,0 +1,152 @@
+(...)
+
+    private static CancellationTokenSource _ctSource = new();
+    private static CancellationToken _token = _ctSource.Token;
+    private static ConcurrentBag<List<Phone>> _phoneBag = new();
+    private static int _degreeParallel = 5;
+    private static List<(IScraper, string)> _scraperTuples;
+    private static TestScraper[] _testArray;
+
+(...)
+
+// example of a method that uses Parallel.ForEach
+    private static void StartAllParallelTest()
+    {
+        ParallelOptions parOptions = new();
+        parOptions.CancellationToken = _token;
+        parOptions.MaxDegreeOfParallelism = _degreeParallel;
+
+        AnnounceAndEnableCancelRequests(_scraperTuples.Count);
+
+        try
+        {
+            Parallel.ForEach(_scraperTuples, parOptions, (scraperTuple, loopState) =>
+            {
+                // When cancellation is requested, only planned tasks will be cancelled.
+                // Cancellation requests will do nothing when the test list is too small.
+                IScraper scraper = scraperTuple.Item1;
+                string url = scraperTuple.Item2;
+                if (scraper.CanExecute(url))
+                {
+                    _phoneBag.Add(scraper.ExecuteFile(url));
+                }
+                else loopState.Break();
+            });
+            Console.Clear();
+            Console.WriteLine("Operation ran to completion.");
+        }
+        catch (OperationCanceledException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
+        finally
+        {
+            _ctSource.Dispose();
+        }
+
+        WritePhoneBagCountToConsole();
+
+        EndScraping();
+    }
+
+// with a SemaphoreSlim in a using statement ( method called as StartAllSemaphoreTest.Wait() in main )
+    private static async Task StartAllSemaphoreTest()
+    {
+        int scrCount = 20;
+        _testArray = new TestScraper[scrCount];
+
+        for (int i = 0; i < scrCount; i++)
+        {
+            _testArray[i] = new TestScraper(_token);
+        }
+
+        var tasks = new List<Task>();
+
+        int cursorY = 0;
+
+        AnnounceAndEnableCancelRequests(scrCount);
+
+        using (var semaphore = new SemaphoreSlim(_degreeParallel))
+        {
+            try
+            {
+                for (int i = 0; i < scrCount; i++)
+                {
+                    int j = i; // avoid closure bug
+
+                    await semaphore.WaitAsync(_token);
+
+                    tasks.Add(Task.Run(() =>
+                    {
+                        try
+                        {
+                            _token.ThrowIfCancellationRequested();
+                            _phoneBag.Add(_testArray[j].ExecuteFile("test", cursorY));
+                            Interlocked.Increment(ref cursorY);
+
+                            if (cursorY > 4) Interlocked.Exchange(ref cursorY, 0);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            throw;
+                        }
+                        finally
+                        {
+                            semaphore.Release();
+                        }
+                    }));
+                }
+
+                await Task.WhenAll(tasks);
+                WritePhoneBagCountToConsole();
+
+            }
+            catch (OperationCanceledException cancelEx)
+            {
+                Console.WriteLine(cancelEx.Message);
+            }
+            finally
+            {
+                _ctSource.Dispose();
+                semaphore.Dispose();
+            }
+        }
+
+        EndScraping();
+    }
+
+    /// <summary>
+    /// States the scraper count, then waits for a key press before starting a task to
+    /// check for cancellation which can then be communicated to the token source.
+    /// </summary>
+    /// <param name="scraperCount"></param>
+    private static void AnnounceAndEnableCancelRequests(int scraperCount)
+    {
+        Console.WriteLine($"Testing with {scraperCount} scrapers to run in parallel, " +
+            $"{_degreeParallel} at a time.");
+        Console.WriteLine("Press any key to start. To cancel the operation in progress, press 'c'.");
+        Console.ReadKey();
+
+        Console.Clear();
+        Task.Factory.StartNew(() =>
+        {
+            if (Console.ReadKey().KeyChar == 'c')
+            {
+                _ctSource.Cancel();
+                Console.WriteLine("\nAttempting to cancel planned tasks...");
+            }
+        });
+    }
+
+    private static void EndScraping()
+    {
+        Console.WriteLine("\nPress any key to close this program.");
+        Console.ReadKey();
+        Environment.Exit(0);
+    }

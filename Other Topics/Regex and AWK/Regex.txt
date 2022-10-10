@@ -1,3 +1,10 @@
+Removing unwanted tags (<any>) or non-breaking spaces (&nbsp;) foudn in a string of text pulled from html:
+
+        private string SanitizeParagraph(string text)
+        {
+            return Regex.Replace(text, "<.*?>|(\\s*&nbsp;\\s*)", string.Empty);
+        }
+
 Removing whitespace from an XML document:
 
 	var regex = new Regex(@"[\s]+(?![^><]*(?:>|<\/))");
