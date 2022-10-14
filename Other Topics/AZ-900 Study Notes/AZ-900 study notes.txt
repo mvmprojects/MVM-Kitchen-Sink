@@ -48,18 +48,28 @@ Private cloud model: transparency/security concerns, privacy and regulatory conc
 Hybrid cloud model: keeping sensitive data on-premises while still benefitting from applications running in the public cloud.
 Community cloud model: hospitals sharing medical data.
 
-General terms:
--Regions are geological locations with one or more Availability Zones where one or more data centers, which house Azure servers, are located.
+---------------------
+Azure Service concepts
+
+Basic resource hierarchy:
+
+-Azure Virtual Machines (VMs) are software-based computers that run within a physical computer. The physical computer is considered the host and the VMs are often referred to as guests. A VM does not need to run the same operating system as the host.
 
 -Resource groups are required groupings for your Azure VMs. All the resources in your resource group should share the same lifecycle. You deploy, update and delete them together. Each resource can only exist in one resource group. You cannot have a resource group within another resource group.
 
--Subscriptions contain one or more resource groups.
+-Azure Subscriptions contain one or more resource groups.
 
 -Management Groups are folders that can contain one or more Subscriptions, or more Management Groups.
 
 -Containers are packages of software that contain all of the necessary elements to run in any environment. Containers only emulate operating systems, not the whole machine, making them smaller than Virtual Machines.
 
--An Availability set protects you from maintenance events and downtime caused by hardware failures. It involves using fault domains and update domains and requires deploying at least two VMs.
+Regions, Zones and Availability Sets:
+
+-Azure Regions are geological locations with one or more Availability Zones (with some exceptions) where one or more data centers, which house Azure servers, are located.
+
+-Azure Availability Zones are physically separate locations within an Azure region that are tolerant to local failures. Some specific Azure regions might not provide any Availability Zones.
+
+-An Availability Set protects you from maintenance events and downtime caused by hardware failures (in a datacenter). It involves using fault domains and update domains and requires deploying at least two VMs.
 
 -Update Domains protect you from planned maintenance events. 
 -Fault Domains protect from unplanned updates and unexpected downtime. By default, Azure assigns two Fault Domains to an availability set.
@@ -68,41 +78,73 @@ An availability set should not be confused with an availability zone. The latter
 
 An availability set has the disadvantage of requiring you to set up a load balancer in front of the VMs for handling traffic. Other disadvantages include having to explicitly set up new machines, and having to configure them.
 
--A scale set solves some of the disadvantages of an availability set. It provides options for creating a load balancer or gateway, and allows you to pick the operating system and how many VMs you need. Azure will create as many VMs as you want, up to 1000, in one step.
+-A Scale Set solves some of the disadvantages of an availability set. It provides options for creating a load balancer or gateway, and allows you to pick the operating system and how many VMs you need. Azure will create as many VMs as you want, up to 1000, in one step.
 
 Scale sets are deployed in availability sets automatically, so you immediately benefit from multiple fault domains and update domains. Unlike VMs in an availability set, VMs in a scale set are also compatible with availability zones, so you will be protected from problems in an Azure datacenter.
 
-Scale sets come with an auto-scale feature, which will automatically start new VMs to handle rising pressure or scale back and deallocate instances. This will provide you with elasticity.
+Scale Sets come with an auto-scale feature, which will automatically start new VMs to handle rising pressure or scale back and deallocate instances. This will provide you with elasticity.
+
+Core workload products available in Azure (non-exhaustive list):
+
+-Azure Compute Services are the hosting services responsible for hosting and running the application workloads. These include Azure Virtual Machines (VMs), Azure Container Service, Azure App Services etc.
+
+-App Service Plan - every web app you create runs inside of an App Service plan. Multiple apps can run inside of a single App Service plan.
+
+The following pricing tiers are available in App Service: 
+-Free - no-cost
+-Shared - low-cost
+-Basic, Standard, Premium, and PremiumV2 - highest cost tiers with additional features
+
+"You are charged for App Service plans even when no web apps are running in them. If you do have web apps in your App Service plan, you
+are still charged if you stop the web apps. The only way to avoid being billed for an App Service plan is to delete it."
+
+-Azure Container Instances (ACI) is a PaaS service that offers the ability to run a containerized application easily.
+
+-Azure Kubernetes Service (AKS) is a container orchestration service. This means that it’s responsible for monitoring containers and ensuring that they’re always running. It can also scale to add additional containers when the needs require it to, and it can then scale back when the needs are reduced.
+
+-Windows Virtual Desktop - the OS runs on a centralized server instead of locally.
+
+-An Azure Virtual Network (VNet) allows Virtual Machines to communicate amongst themselves. You can even use a VNet to communicate between your on-premises resources and your Azure resources.
+
+-Azure SQL Database - a PaaS offering for SQL Server database hosting. SQL Server databases are relational databases.
+
+-Cosmos DB - Microsoft offers a hosted NoSQL (non-relational) database system in Azure called Cosmos DB, which supports all the NoSQL database types.
+
+-Azure Functions - the Compute component of Azure’s serverless offerings - you can write code without having to worry about deploying it. A function is code that runs when something triggers it.
+
+-Logic Apps - are similar to Function Apps in that they are kicked off by a trigger, but what happens after that is completely different. Unlike Function Apps, you don’t have to write code to create workflows.
+
+Other notes:
 
 -The initial Domain Name for a new Azure AD "tenant" cannot be changed and cannot be deleted. You can only add custom domain names for your business.
 
--SKU stands for Stock Keeping Unit, used to refer to Virtual Machine SKUs in Azure. SKUs represent different, distinct shapes of purchasable products (specific VMs). These can be compared in terms of performance and costs.
+-SKU stands for "Stock Keeping Unit", used to refer to Virtual Machine SKUs in Azure. SKUs represent different, distinct shapes of purchasable products (specific VMs). These can be compared in terms of performance and costs.
 
 ---------------------
 Azure Storage concepts
 
-azure storage services: 
-blob storage - unstructured data like files and documents
-file storage - supports SMB protocol and can be attached to network drives
-disk storage - stores the VM disks as used by IaaS VMs
-table storage - store (semi-)structered data in the form of NoSQL non-relational data
-queue storage - store/retrieve messages for async applications that pass messages
+Azure storage services: 
+-blob storage - unstructured data like files and documents
+-file storage - supports SMB protocol and can be attached to network drives
+-disk storage - stores the VM disks as used by IaaS VMs
+-table storage - store (semi-)structered data in the form of NoSQL non-relational data
+-queue storage - store/retrieve messages for async applications that pass messages
 
-account types:
-general purpose v2 - blobs (binary large object), files, tables, queues - most redundancy options
-premium block blob - best for high transaction rates or low storage latency
-premium file share - best for enterprise/high performance applications that need to scale
-premium page blob - larger blobs - best for random read and write operations
+Account types:
+-general purpose v2 - blobs (binary large object), files, tables, queues - most redundancy options
+-premium block blob - best for high transaction rates or low storage latency
+-premium file share - best for enterprise/high performance applications that need to scale
+-premium page blob - larger blobs - best for random read and write operations
 note: all premium account types use solid state drives.
 note: you can't change the storage account type after it's been created.
 
-categories of redundancy options:
+Categories of redundancy options:
 
 -Redundancy in primary region - LRS and ZRS
 -Redundancy in a secondary region - GRS or GZRS
 -Read access to the secondary region when using GRS or GZRS (normally not available until a failover)
 
-data redundancy options:
+Data redundancy options:
 
 -LRS - Locally-redundant storage - the cheapest option - protection against server-rack and drive failures
 -ZRS - Zone-redundant storage - recommended for high availability - protection against datacenter-level failures
@@ -111,29 +153,29 @@ data redundancy options:
 
 Blob access tiers:
 
-hot tier - lowest data access cost, highest storage cost
-cool tier - low storage cost, higher data access cost
-archive tier - lowest storage cost, highest data retrieval cost
+Hot tier - lowest data access cost, highest storage cost
+Cool tier - low storage cost, higher data access cost
+Archive tier - lowest storage cost, highest data retrieval cost
 
-you can move data between access tiers via the feature known as Blob Lifecycle Management, setting policies for moving between tiers, because aged data is less likely to see frequent data access and should be treated accordingly.
+You can move data between access tiers via the feature known as Blob Lifecycle Management, setting policies for moving between tiers, because aged data is less likely to see frequent data access and should be treated accordingly.
 
 Blob types: 
-block blob - composed of blocks so that it is optimized for uploading - most cost-effective way to store a large number of files
-append blob - can only append blocks - optimized for appending data which is ideal for logs
-page blob - made for frequent random read/write - used to store disks for virtual machines and databases
+-block blob - composed of blocks so that it is optimized for uploading - most cost-effective way to store a large number of files
+-append blob - can only append blocks - optimized for appending data which is ideal for logs
+-page blob - made for frequent random read/write - used to store disks for virtual machines and databases
 
 Data Transfer Options
 
-data transfer considerations: amount of data, frequency of data transfer, available network bandwidth
+Data transfer considerations: amount of data, frequency of data transfer, available network bandwidth
 
-online options for data transfer:
-Azure Portal - as seen in the videos etc.
-Azure Storage Explorer - with easy GUI similar to File Explorer, so tasks can be delegated to business users. uses AzCopy behind the scenes.
-AzCopy - command line tool that can be used to upload and manage data, and can be used to change access tiers from hot to cool etc.
-PowerShell
-Azure CLI
-Storage Client Libraries (SDKs)
-Azure File Sync - to extend on-premises data to Azure. frequently accessed data is kept on premises and less-frequently used data is automatically stored on Azure.
+Online options for data transfer:
+-Azure Portal - the basic way of accessing Azure via the browser
+-Azure Storage Explorer - with a familiar GUI similar to the File Explorer in windows, so tasks can be delegated to business users - this explorer uses AzCopy behind the scenes.
+-AzCopy - command line tool that can be used to upload and manage data, and can be used to change access tiers from hot to cool etc.
+-PowerShell
+-Azure CLI
+-Storage Client Libraries (SDKs)
+-Azure File Sync - to extend on-premises data to Azure. Frequently accessed data is kept on premises and less-frequently used data is automatically stored on Azure.
 
 Azure Migrate
 
@@ -196,7 +238,7 @@ This is a "personalized cloud consultant" and a tool that can make recommendatio
 Azure Arc 
 Arc can allow you to manage resources hosted outside of Azure (on-premises or in other cloud providers). This allows for consistent management and security across your environment. For instance, you can manage servers, Kubernetes clusters, Azure data services (running on-premises or in the public cloud) and SQL Server instances all hosted outside of Azure.
 
-Benefits of Arc include features of ARM including: organizing resources with groups and tags, searching and indexing with Azure Resource Graph, security and access through role-based access control and subscriptions, automation and update management.
+Benefits of Arc include features of ARM, including: organizing resources with groups and tags, searching and indexing with Azure Resource Graph, security and access through role-based access control and subscriptions, automation and update management.
 
 Azure Arc - Server Management
 With Arc, you can (among other things) monitor managed servers for threats (with Microsoft Defender) and security related events (with Microsoft Sentinel). You can apply Azure policies, and you can collect logs with the Log Analytics agent (not installed by default).
@@ -205,11 +247,11 @@ With Arc, you can (among other things) monitor managed servers for threats (with
 Azure Security and Privacy Concepts
 
 Includes: 
-Azure identity services - Azure AD
-Access control - role-based access control (RBAC)
-Azure governance - Azure policies and blueprints
-Securing networks - network security groups, firewalls and routing
-Reporting and Compliance - standards, data protection and monitoring
+-Azure identity services - Azure AD
+-Access control - role-based access control (RBAC)
+-Azure governance - Azure policies and blueprints
+-Securing networks - network security groups, firewalls and routing
+-Reporting and Compliance - standards, data protection and monitoring
 
 In Azure, authentication is provided by Azure AD and authorization is provided by role-based access control.
 
@@ -221,10 +263,12 @@ Three most commonly used, built-in roles for working with resources are:
 -Contributor - can do everything except grant other users access to resources
 -Reader - read-only access 
 
-You should start with using built-in roles, create custom roles only when needed, and always stick with the Least Privilege Principle where users have just enough access privileges to do their jobs and no more than that.
+You should start with using the (many) built-in roles, create custom roles only when needed, and always stick with the Least Privilege Principle where users have just enough access privileges to do their jobs and no more than that.
 
 Locks
 The use of a lock can prevent the deletion or modification of a resource group and its content. The two types of locks are "Read-only" and "Delete" where in the former case no resources can be added or removed, while in the latter case you can still add new resources to the resource group - you just can't delete them.
+
+Specific governance tools
 
 You can use governance tools to ensure:
 -Security standards - security requirements for cloud deployments.
@@ -246,7 +290,7 @@ Blueprints include policies and initiatives as well as artifacts such as roles.
 
 Using blueprints involves: 
 -Blueprint definition - includes details of resource groups, resource manager templates included for deployment, policies included, roles assigned to resources that the Blueprint has created.
--Blueprint publishing - with a version number and change notes. when you change the Blueprint and save the draft you then publish it under a new version number.
+-Blueprint publishing - with a version number and change notes. When you change the Blueprint and save the draft you should then publish it under a new version number.
 -Blueprint assignment - assign to a scope - select location, version number and other parameters.
 
 Basic security principle: plan your security with defense-in-depth, meaning with multiple layers.
