@@ -1,0 +1,51 @@
+-----
+
+Integration testing with actual database
+
+1. Prepare options with: this.CreateUniqueClassOptions<DataContext>
+
+2. Create new datacontext: using DataContext context = new(options);
+
+3. Force reset: context.Database.EnsureClean();
+
+4. Normal initialisation of service that uses a context
+
+5. Check if a new test database is created for every class in your test project.
+
+Your test project (such as EFCoreIntTest.Business.IntegrationTests.csproj) has an appsettings.json with its own connectionstring, in which you simply use the same database naam as seen in the rest of the solution but with "-Test" postfixed, just to tidy things up in the SQL Server Object Explorer. Your new database will be called something like RealName-Test_TestClassName.
+
+As seen in SQL Server Object Explorer after running two test classes:
+	EfCoreIntegrationTestDb
+	EfCoreIntegrationTestDb-Test_Add
+	EfCoreIntegrationTestDb-Test_Get
+	etc.
+
+6. Make sure test data has actually been seeded.
+
+7. (not included in example) move some db creation code to a setup method (once per class) instead of copy-pasting the whole block of code to every new individual test.
+
+////// example
+
+using Microsoft.EntityFrameworkCore;
+using TestSupport.EfHelpers;
+
+public class Get
+{
+    [Fact]
+    public void Get_should_return_existing_phone()
+    {
+        // arrange
+        DbContextOptions<DataContext> options = this.CreateUniqueClassOptions<DataContext>();
+        using DataContext context = new(options);
+        context.Database.EnsureClean();
+        PhoneService phoneService = new(context);
+
+        // act
+        Phone phone = phoneService.Get(1)!;
+
+        // assert
+        Assert.Equal("P31", phone.Type); // always make test fail first!
+        // Assert.Equal("P30", phone.Type); // has been seeded and exists
+        // Assert.Equal("Huawei", phone.Type);
+    }
+}

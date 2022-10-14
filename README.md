@@ -24,11 +24,15 @@ SQL samples, Data Normalization
 
 EF samples, EF commands and conventions
 
-### Unit Testing and Mapping
+### Testing and Mapping
 
 xUnit, Moq, Automapper
 
 ## Other Topics
+
+### AZ-900 Study Notes
+
+Created while studying for the Microsoft Azure Fundamentals exam
 
 ### Git and Git Bash
 
