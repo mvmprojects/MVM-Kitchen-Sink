@@ -4,12 +4,12 @@ Notes on Azure, based on various sources available in 2022.
 
 General note: The Azure portal can be viewed on any browser and hence can be viewed on almost any operating system. The Azure CLI is available on all platforms.
 
-### Azure Cloud concepts
+## Azure Cloud concepts
 
 **IaaS** runs hardware and virtualization, but everything including the OS and beyond is up to you.
 **PaaS** also runs the OS, the runtime and any middleware in between.
 
-##### IaaS use cases:
+#### IaaS use cases:
 - temporary high performance computing.
 - testing an application during release.
 (current state of the OS is always known to you - cloud provider is not going to install/change anything.)
@@ -17,13 +17,13 @@ General note: The Azure portal can be viewed on any browser and hence can be vie
 - you get to choose when the VM is updated.
 note: requires you to update your own OS, close your own ports and generally protect your own server.
 
-##### PaaS use cases:
+#### PaaS use cases:
 - when quickly moving on-premises applications to the cloud, with flexible deployment options for your applications.
 - need to run a web app that needs a specific framework running (such as PHP) and you don't want to manage and configure this on the VM.
 - don't have to worry about docker installation or configuration as it's included on all App Service VMs by default.
 - backing up and restoring data tend to be more user-friendly and feature-rich in PaaS, because of custom software already installed by the cloud provider.
 
-##### PaaS example services:
+#### PaaS example services:
 	Azure CDN
 	Azure Cosmos DB
 	Azure SQL Database
@@ -31,7 +31,7 @@ note: requires you to update your own OS, close your own ports and generally pro
 	Azure Storage
 	Azure Synapse Analytics
 
-##### SaaS use cases:
+#### SaaS use cases:
 - ready-to-go software that works from just about any device
 - cloud provider takes care of availability, backups and patches
 - you don't have to know anything about the software internals or about the patches
@@ -42,9 +42,9 @@ Private cloud model: transparency/security concerns, privacy and regulatory conc
 Hybrid cloud model: keeping sensitive data on-premises while still benefitting from applications running in the public cloud.
 Community cloud model: hospitals sharing medical data.
 
-### Azure Service concepts
+## Azure Service concepts
 
-##### Basic Resource Hierarchy
+#### Basic Resource Hierarchy
 
 **Azure Virtual Machines (VMs)** are software-based computers that run within a physical computer. The physical computer is considered the host and the VMs are often referred to as guests. A VM does not need to run the same operating system as the host.
 
@@ -56,16 +56,17 @@ Community cloud model: hospitals sharing medical data.
 
 **Containers** are packages of software that contain all of the necessary elements to run in any environment. Containers only emulate operating systems, not the whole machine, making them smaller than Virtual Machines.
 
-##### Regions, Zones and Availability/Scale Sets
+#### Regions, Zones and Availability/Scale Sets
 
-**Azure Regions ** are geological locations with one or more Availability Zones (with some exceptions) where one or more data centers, which house Azure servers, are located.
+**Azure Regions** are geological locations with one or more Availability Zones (with some exceptions) where one or more data centers, which house Azure servers, are located.
 
 **Azure Availability Zones** are physically separate locations within an Azure region that are tolerant to local failures. Some specific Azure regions might not provide any Availability Zones.
 
 **An Availability Set** protects you from downtime caused by issues happening in a datacenter. It involves using fault domains and update domains and requires deploying at least two VMs.
 
-(*Update Domains*) protect you from planned maintenance events. 
-(*Fault Domains*) protect from unplanned updates and unexpected downtime. By default, Azure assigns two Fault Domains to an Availability Set.
+*Update Domains* protect you from planned maintenance events. 
+
+*Fault Domains* protect from unplanned updates and unexpected downtime. By default, Azure assigns two Fault Domains to an Availability Set.
 
 An Availability Set should not be confused with an Availability Zone. The latter means multiple servers in distinct data centers in a region with a 99.99 availability SLA, and the former means multiple racks in a datacenter with a 99.95 availability SLA.
 
@@ -77,15 +78,18 @@ Scale Sets are deployed in availability sets automatically, so you immediately b
 
 Scale Sets come with an auto-scale feature, which will automatically start new VMs to handle rising pressure or scale back and deallocate instances. This will provide you with elasticity.
 
-##### Core workload products available in Azure (non-exhaustive list)
+#### Core workload products available in Azure (non-exhaustive list)
 
 An **Azure Virtual Network (VNet)** allows Virtual Machines to communicate amongst themselves. You can even use a VNet to communicate between your on-premises resources and your Azure resources.
 
 **Azure Compute Services** are the hosting services responsible for hosting and running the application workloads. These include Azure Virtual Machines (VMs), Azure Container Service, Azure App Services etc.
 
 Serverless products include: **Azure Functions**, **Logic Apps**, **Event Grid**.
+
 **Azure Functions:** A Function is code that runs when something triggers it. You can write code without having to worry about deploying it or about designing elasticity - as requests increase, Functions will meet the demand with as many resources as needed and then automatically scale down as requests fall.
+
 **Logic Apps:** Create and run workflows with little to no code. These are similar to Function Apps in that they are kicked off by a trigger. Offers a visual designer and pre-built operations.
+
 **Event Grid:** An event broker to integrate applications using events (where an event is the smallest amount of info that fully describes something that happened in the system). Events can be communicated to other applications and services, and Azure Event Grid can guarantee availability of the resulting event-driven architecture by spreading across fault domains/availability zones.
 
 **App Service Plan:** Every web app you create runs inside of an App Service plan. Multiple apps can run inside of a single App Service plan.
@@ -106,15 +110,15 @@ are still charged if you stop the web apps. The only way to avoid being billed f
 
 **Cosmos DB:** a hosted NoSQL (non-relational) database system.
 
-##### Other notes:
+#### Other notes:
 
 -The initial Domain Name for a new Azure AD "tenant" cannot be changed and cannot be deleted. You can only add custom domain names for your business.
 
 -SKU stands for "Stock Keeping Unit", used to refer to Virtual Machine SKUs in Azure. SKUs represent different, distinct shapes of purchasable products (specific VMs). These can be compared in terms of performance and costs.
 
-### Azure Storage Concepts
+## Azure Storage Concepts
 
-##### Azure Storage Services
+#### Azure Storage Services
 
 - blob storage: unstructured data like files and documents
 - file storage: supports SMB protocol and can be attached to network drives
@@ -122,7 +126,7 @@ are still charged if you stop the web apps. The only way to avoid being billed f
 - table storage: store (semi-)structered data in the form of NoSQL non-relational data
 - queue storage: store/retrieve messages for async applications that pass messages
 
-##### Account Types
+#### Account Types
 
 - general purpose v2: blobs (binary large object), files, tables, queues; most redundancy options
 - premium block blob: best for high transaction rates or low storage latency
@@ -131,35 +135,35 @@ are still charged if you stop the web apps. The only way to avoid being billed f
 note: all premium account types use solid state drives.
 note: you can't change the storage account type after it's been created.
 
-Azure Files is a completely managed fileshare. It relieves you of the burden of managing a VM and adding disks to the VM. Azure Files shares are backed by Azure Storage, so you will need a storage account to create an Azure Files share. Use Azure File Sync to keep your files in Azure Files synchronized with your on-premises server.
+**Azure Files** is a completely managed fileshare. It relieves you of the burden of managing a VM and adding disks to the VM. Azure Files shares are backed by Azure Storage, so you will need a storage account to create an Azure Files share. Use Azure File Sync to keep your files in Azure Files synchronized with your on-premises server.
 
-##### Categories of Redundancy Options
+#### Categories of Redundancy Options
 
 - Redundancy in primary region: LRS and ZRS
 - Redundancy in a secondary region: GRS or GZRS
 - Read access to the secondary region when using GRS or GZRS (normally not available until a failover)
 
-##### Data Redundancy Options
+#### Data Redundancy Options
 
 - LRS: Locally-redundant storage; the cheapest option; protection against server-rack and drive failures
 - ZRS: Zone-redundant storage; recommended for high availability; protection against datacenter-level failures
 - GRS: Geo-redundant storage; recommended for backups; failover capabilities in a secondary region (works even if the entire primary region is harmed by a regional disaster). you cannot choose the secondary region as this is decided by microsoft. paired regions are listed online.
 - GZRS: Geo-zone-redundant storage; offers the protection of both GRS and ZRS.
 
-##### Blob Access Tiers
+#### Blob Access Tiers
 
-- Hot tier: lowest data access cost, highest storage cost
-- Cool tier: low storage cost, higher data access cost
-- Archive tier: lowest storage cost, highest data retrieval cost
+- *Hot tier:* lowest data access cost, highest storage cost
+- *Cool tier:* low storage cost, higher data access cost
+- *Archive tier:* lowest storage cost, highest data retrieval cost
 
 You can move data between access tiers via the feature known as Blob Lifecycle Management, setting policies for moving between tiers, because aged data is less likely to see frequent data access and should be treated accordingly.
 
-(*Blob types*) 
+**Blob types**
 - block blob: composed of blocks so that it is optimized for uploading; most cost-effective way to store a large number of files
 - append blob: can only append blocks; optimized for appending data which is ideal for logs
 - page blob: made for frequent random read/write; used to store disks for virtual machines and databases
 
-##### Data Transfer Options
+#### Data Transfer Options
 
 Data transfer considerations: amount of data, frequency of data transfer, available network bandwidth
 
@@ -172,7 +176,7 @@ Online options for data transfer:
 - Storage Client Libraries (SDKs)
 - Azure File Sync: to extend on-premises data to Azure. Frequently accessed data is kept on premises and less-frequently used data is automatically stored on Azure.
 
-##### Azure Migrate
+#### Azure Migrate
 
 - can assess your on-premises and virtual servers for migration compatibility
 - can assess on-premises SQL Server instances; can then migrate to SQL running on a VM, to an Azure SQL Database, or an Azure SQL Managed Instance (scalable cloud database service)
@@ -190,7 +194,7 @@ For migrating on-premises SQL Server databases:
 
 Both of the db tools above can target SQL servers in VMs, Azure SQL Database, or Azure SQL Managed Instances (scalable cloud database service)
 
-### Azure Management & Monitoring concepts
+## Azure Management & Monitoring concepts
 
 **Azure Resource Manager (ARM)** is central to all of Azure Management. When using Azure Portal, you're really just using a website that is sending requests to the right ARM endpoint. ARM handles authentication via Azure Active Directory (Azure AD), and then sends a request on to the Azure Service that you want to create or manipulate.
 
@@ -203,11 +207,11 @@ Both of the db tools above can target SQL servers in VMs, Azure SQL Database, or
 **Azure Service Health** keeps you informed about the health of your cloud resources. This includes information about current and upcoming issues such as outages and planned maintenance.
 
 This is divided up into three parts:
-- (*Azure Status*): Service outages across all of Azure
-- (*Service Health*): Service health of services and regions that you actually use. Includes planned maintenance, Health Advisories and Security Advisories. In the menu blade Service issues you can add resource health alerts.
-- (*Resource Health*): Health of specific resources
+- *Azure Status*: Service outages across all of Azure
+- *Service Health*: Service health of services and regions that you actually use. Includes planned maintenance, Health Advisories and Security Advisories. In the menu blade Service issues you can add resource health alerts.
+- *Resource Health*: Health of specific resources
 
-##### Azure Monitor 
+#### Azure Monitor 
 
 **Monitor** is a service that collects metrics and logs from the resources in your subscription. You can use it to check the performance and availability of your apps and services. Azure Monitor comes with **Metrics Explorer** and **Log Analytics**. Also included in Monitor is the service called **Application Insights**, which monitors the availability, usage and performance of your web apps. For even deeper monitoring you can use the Application Insights SDK from inside your code.
 
@@ -229,22 +233,22 @@ After you create a Log Analytics workspace, you need to add and configure data s
 
 Data collection in Logs will incur ingestion and retention costs. Before enabling data collection, users should refer to Azure Monitor pricing.
 
-##### Azure Advisor 
+#### Azure Advisor 
 
 This is a "personalized cloud consultant" and a tool that can make recommendations on how to improve performance, availability, security and on how to save costs. 
 
 Includes Azure Advisor Security Assistance, which integrates with Azure Security Center, to provide best practice security recommendations.
 
-##### Azure Arc 
+#### Azure Arc 
 
 **Arc** can allow you to manage resources hosted outside of Azure (on-premises or in other cloud providers). This allows for consistent management and security across your environment. For instance, you can manage servers, Kubernetes clusters, Azure data services (running on-premises or in the public cloud) and SQL Server instances all hosted outside of Azure.
 
 Benefits of Arc include features of ARM, including: organizing resources with groups and tags, searching and indexing with Azure Resource Graph, security and access through role-based access control and subscriptions, automation and update management.
 
-(*Azure Arc - Server Management*)
+*Azure Arc - Server Management*
 With Arc, you can (among other things) monitor managed servers for threats (with Microsoft Defender) and security related events (with Microsoft Sentinel). You can apply Azure policies, and you can collect logs with the Log Analytics agent (not installed by default).
 
-### Azure Security and Privacy Concepts
+## Azure Security and Privacy Concepts
 
 Includes: 
 - Azure identity services: Azure AD
@@ -253,13 +257,13 @@ Includes:
 - Securing networks: network security groups, firewalls and routing
 - Reporting and Compliance: standards, data protection and monitoring
 
-##### Azure Identity Services
+#### Azure Identity Services
 
 In Azure, authentication is provided by Azure AD and authorization is provided by role-based access control (RBAC).
 
 **Azure AD** is for single sign-on (SSO) and application integration - it does not have all the features of Active Directory Domain Services. If you want that, then you need Azure AD Domain Services (Azure AD DS), which is a PaaS offering by Azure but it still does not offer all the same features and cannot (yet) be used to replace on-premises ADDS. Use **Azure AD Connect** to replicate objects from ADDS.
 
-##### Access Control
+#### Access Control
 
 Role-based access control (RBAC)
 Three most commonly used, built-in roles for working with resources are: 
@@ -269,13 +273,13 @@ Three most commonly used, built-in roles for working with resources are:
 
 You should start with using the (many) built-in roles, create custom roles only when needed, and always stick with the Least Privilege Principle where users have just enough access privileges to do their jobs and no more than that.
 
-##### Locks
+#### Locks
 
 The use of a lock can prevent the deletion or modification of a resource group and its contents. 
 
 The two types of locks are "Read-only" and "Delete" where in the former case no resources can be added or removed, while in the latter case you can still add new resources to the resource group - you just can't delete them.
 
-##### Specific Governance Tools
+#### Specific Governance Tools
 
 You can use governance tools to ensure:
 - Security standards: security requirements for cloud deployments.
@@ -300,7 +304,7 @@ Using Blueprints involves:
 - Blueprint publishing: with a version number and change notes. When you change the Blueprint and save the draft you will then publish it under a new version number.
 - Blueprint assignment: assign to a scope; select location, version number and other finalizing parameters.
 
-##### Securing Networks
+#### Securing Networks
 
 Basic security principle: plan your security with defense-in-depth, meaning with multiple layers.
 
@@ -335,7 +339,7 @@ Use to override default system routes. Often used when traffic must be filtered 
 - Azure Key Vault
 - Azure Security Center
 
-##### Reporting and Compliance
+#### Reporting and Compliance
 
 **Azure Information Protection (AIP)** is used to classify documents and emails, labeled as confidential etc. Labeled documents can be protected with encryption and can then only be opened with the appropriate rights. AIP labels can be applied manually, automatically, or show up as recommendations. 
 
@@ -349,7 +353,7 @@ Included with Security Center is **Azure Sentinel**, which is intelligent and ha
 - Security information event management (SIEM)
 - Security orchestration automated response (SOAR)
 
-##### Azure Compliance and Data Protection Standards
+#### Azure Compliance and Data Protection Standards
 
 Two main topics:
 - Azure Service Trust Portal 
@@ -365,9 +369,9 @@ In the **Azure Service Trust Portal** you will find Compliance Manager, Trust Do
 
 To enforce isolation of your data, you can utilize Dedicated Hosts. Each of these is dedicated to a single organization. This host-level isolation can help you meet certain compliance requirements.
 
-### Azure Pricing and Support concepts
+## Azure Pricing and Support concepts
 
-##### Azure Subscriptions 
+#### Azure Subscriptions 
 
 A **Subscription** is a logical container of Azure resources and administration. Adopting Azure starts with creating a new Subscription, tying it to an account, and then deploying the cloud resources you want to use. This creates a hierarchy of:
 - Subscription 
@@ -394,7 +398,7 @@ Naming conventions for your new Subscriptions are extremely important to help ma
 
 **Management Groups** allow you to apply governance conditions (access & policies) a level above Subscriptions. A common way to use Management Groups is to have one Root Management Group that contains sub groups such as an IT Management Group, a Marketing Management Group etc. This way, the sub groups can inherit permissions and Azure policies from the Root Management Group.
 
-##### Planning and Management of Costs
+#### Planning and Management of Costs
 
 Azure Subscription options include Free (access to free services and $200 in Azure credit over 30 days), Pay-As-You-Go (monthly), Student ($100 in Azure credit over 12 months), Enterprise Agreement (purchase services from Microsoft under single agreement).
 
@@ -420,7 +424,7 @@ Pricing calculators:
 - **Azure Pricing Calculator** -- estimate costs for combinations of Azure products.
 - **Total Cost of Ownership (TCO) Calculator** -- estimate cost savings when migrating to Azure, along with TCO, over the next five years.
 
-##### Support Options Available with Azure
+#### Support Options Available with Azure
 
 - Basic support plan is free and mostly involves support for subscription and billing.
 - Developer; non production -- email support during business hours, with response within 8 hours. General guidance on architecture.
@@ -446,7 +450,7 @@ You can determine the right SLA for your company depending on the following poin
 - availability metrics: Mean Time to Recover (MTTR) = average time it take to restore a component after failure, Mean Time Between Failures (MTBF) = how long a component is expected to last until the next failure
 - composite SLA - what your SLAs will combine into
 
-##### Service Lifecycle in Azure
+#### Service Lifecycle in Azure
 
 Topics:
 - public and private preview features
@@ -461,7 +465,7 @@ When previews go live they are considered to fall under **General Availability (
 
 You can monitor feature updates and product changes via the What's New page in Azure Portal, via azure.microsoft.com/updates, or by reading the announcements on the official Azure Blog https://azure.microsoft.com/en-us/blog/topics/announcements/
 
-### Sample Exam Questions
+## Sample Exam Questions
 
 Q: Does MS provide a separate portal for Azure portal specific previews? 
 A: Yes.
