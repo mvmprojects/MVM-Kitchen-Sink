@@ -415,11 +415,12 @@ Azure services that are always free (at the time of writing) include Security Ce
 Factors affecting cost include resource types, service types (Direct, Enterprise Agreement etc), locations, egress (outbound) traffic. Sending data into Azure ingress is free.
 
 An **Azure Zone** is a geographical grouping of Azure Regions for billing purposes. Data transfer pricing is based on the Zones.
+
 Zone composition at the time of writing:
-Zone 1: United States, US Government, Europe, Canada, UK, France, Switzerland
-Zone 2: East Asia, Southeast Asia, Japan, Australia, India, Korea
-Zone 3: Brazil, South Africa, UAE
-DE Zone 1: Germany
+- Zone 1: United States, US Government, Europe, Canada, UK, France, Switzerland
+- Zone 2: East Asia, Southeast Asia, Japan, Australia, India, Korea
+- Zone 3: Brazil, South Africa, UAE
+- DE Zone 1: Germany
 
 Best practices for minimizing Azure costs include: Reserved Instances (predict the amount of VMs you need to run for the year and pre-pay for a discount), Quotas (limits around resources), Spending Limits (disable deployment of new resources upon reaching limits), Tags (as a tool for showback or chargeback, and quickly identifying app owner), Azure Cost Management (analyze and predict costs), Azure Hybrid Benefit (licensing benefit, involving running the workloads of your on-premises OS and SQL Server licences in the cloud)
 
