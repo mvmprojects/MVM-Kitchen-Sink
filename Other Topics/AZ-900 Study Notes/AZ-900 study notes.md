@@ -431,7 +431,7 @@ Pricing calculators:
 #### Support Options Available with Azure
 
 - Basic support plan is free and mostly involves support for subscription and billing.
-- Developer; non production - email support during business hours, with response within 8 hours. General guidance on architecture.
+- Developer - non production environment - email support during business hours, with response within 8 hours. General guidance on architecture.
 
 Other support plans include 24/7 support via email or phone, with a response within the hour.
 - Standard: production environment - help with architecture based on best practices, some support for onboarding practices, service reviews, Azure Advisor consultations. Access to web seminars for training purposes. Proactive guidance from a ProDirect delivery manager.
@@ -448,10 +448,10 @@ A **Composite SLA** will involve more than one service, and this is very likely 
 An example of a composite SLA: App Service web app (99.95 uptime) and SQL Server database (99.99 uptime) put together would have a 99.94 uptime SLA.
 
 You can determine the right SLA for your company depending on the following points:
-- cost and complexity balanced with high availability
+- balanced cost and complexity with high availability
 - dependencies of the application - will require you to understand the SLAs of those dependencies as well
-- recovery metrics: RTO = max downtime, RPO = max duration of data loss
-- availability metrics: Mean Time to Recover (MTTR) = average time it take to restore a component after failure, Mean Time Between Failures (MTBF) = how long a component is expected to last until the next failure
+- recovery metrics: *RTO* = max downtime, *RPO* = max duration of data loss
+- availability metrics: *Mean Time to Recover (MTTR)* = average time it take to restore a component after failure, *Mean Time Between Failures (MTBF)* = how long a component is expected to last until the next failure
 - composite SLA - what your SLAs will combine into
 
 #### Service Lifecycle in Azure
