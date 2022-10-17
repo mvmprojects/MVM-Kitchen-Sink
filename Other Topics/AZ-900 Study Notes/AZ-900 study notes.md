@@ -95,9 +95,9 @@ Serverless products include: **Azure Functions**, **Logic Apps**, **Event Grid**
 **App Service Plan:** Every web app you create runs inside of an App Service plan. Multiple apps can run inside of a single App Service plan.
 
 The following pricing tiers are available in App Service: 
--Free - no-cost
--Shared - low-cost
--Basic, Standard, Premium, and PremiumV2 - highest cost tiers with additional features
+- Free - no-cost
+- Shared - low-cost
+- Basic, Standard, Premium, and PremiumV2 - highest cost tiers with additional features
 
 "You are charged for App Service plans even when no web apps are running in them. If you do have web apps in your App Service plan, you
 are still charged if you stop the web apps. The only way to avoid being billed for an App Service plan is to delete it."
@@ -184,11 +184,13 @@ Online options for data transfer:
 - can also assess your on-premises virtual machine infrastructure and then migrate that to Azure Virtual Desktop
 - with the Data Box service, you can migrate a large amount of unstructered data. There is both an online version as well an offline variant where Microsoft will actually ship hard drives to you. Upon receiving the hard drives you can then upload and encrypt your data before shipping the drives back to Microsoft.
 
-Azure Migrate tools:
+*Azure Migrate tools:*
+
 - Discovery and Assessment Tool: assess migration readiness, estimate size and cost of Azure servers, identify dependencies; virtual appliance is installed locally to do the assessment
 - Server Migration Tool: actually replicates the servers to Azure; replication app is installed locally, mobility service agent is installed on the server; incremental updates after initial migration
 
-For migrating on-premises SQL Server databases:
+*For migrating on-premises SQL Server databases:*
+
 - Data Migration Assistant: detects compatibility issues with the cloud, recommends improvements
 - Azure Database Migration Service: for large database migrations 
 
@@ -246,6 +248,7 @@ Includes Azure Advisor Security Assistance, which integrates with Azure Security
 Benefits of Arc include features of ARM, including: organizing resources with groups and tags, searching and indexing with Azure Resource Graph, security and access through role-based access control and subscriptions, automation and update management.
 
 *Azure Arc - Server Management*
+
 With Arc, you can (among other things) monitor managed servers for threats (with Microsoft Defender) and security related events (with Microsoft Sentinel). You can apply Azure policies, and you can collect logs with the Log Analytics agent (not installed by default).
 
 ## Azure Security and Privacy Concepts
@@ -405,7 +408,7 @@ Azure Subscription options include Free (access to free services and $200 in Azu
 Options for purchasing Azure products and services: 
 - Enterprise Agreement (EA): for very large organizations
 - Direct from Microsoft: bill from Microsoft
-- Indirect -- Cloud Solution Provider (CSP): bill from CSP
+- Indirect - Cloud Solution Provider (CSP): bill from CSP
 
 Azure services that are always free (at the time of writing) include Security Center (free tier), Azure DevOps 5 users, DevTest Labs, Event Grid with 100,000 operations per month etc.
 
@@ -427,12 +430,12 @@ Pricing calculators:
 #### Support Options Available with Azure
 
 - Basic support plan is free and mostly involves support for subscription and billing.
-- Developer; non production -- email support during business hours, with response within 8 hours. General guidance on architecture.
+- Developer; non production - email support during business hours, with response within 8 hours. General guidance on architecture.
 
 Other support plans include 24/7 support via email or phone, with a response within the hour.
-- Standard: production environment -- help with architecture based on best practices, some support for onboarding practices, service reviews, Azure Advisor consultations. Access to web seminars for training purposes. Proactive guidance from a ProDirect delivery manager.
-- Professional Direct: business critical -- similar to Standard
-- Premier: substantial dependence -- customer-specific architectural support, reviews led by technical account manager (TAM), on-demand training, Azure Event Management (with additional fee) for launch support
+- Standard: production environment - help with architecture based on best practices, some support for onboarding practices, service reviews, Azure Advisor consultations. Access to web seminars for training purposes. Proactive guidance from a ProDirect delivery manager.
+- Professional Direct: business critical - similar to Standard
+- Premier: substantial dependence - customer-specific architectural support, reviews led by technical account manager (TAM), on-demand training, Azure Event Management (with additional fee) for launch support
 
 Also available: Azure Knowledge Center, MSDN Forum
 
