@@ -9,7 +9,7 @@ General note: The Azure portal can be viewed on any browser and hence can be vie
 **IaaS** runs hardware and virtualization, but everything including the OS and beyond is up to you.
 **PaaS** also runs the OS, the runtime and any middleware in between.
 
-#### IaaS use cases:
+#### IaaS use cases
 - temporary high performance computing.
 - testing an application during release.
 (current state of the OS is always known to you - cloud provider is not going to install/change anything.)
@@ -17,13 +17,13 @@ General note: The Azure portal can be viewed on any browser and hence can be vie
 - you get to choose when the VM is updated.
 note: requires you to update your own OS, close your own ports and generally protect your own server.
 
-#### PaaS use cases:
+#### PaaS use cases
 - when quickly moving on-premises applications to the cloud, with flexible deployment options for your applications.
 - need to run a web app that needs a specific framework running (such as PHP) and you don't want to manage and configure this on the VM.
 - don't have to worry about docker installation or configuration as it's included on all App Service VMs by default.
 - backing up and restoring data tend to be more user-friendly and feature-rich in PaaS, because of custom software already installed by the cloud provider.
 
-#### PaaS example services:
+#### PaaS example services
 	Azure CDN
 	Azure Cosmos DB
 	Azure SQL Database
@@ -31,16 +31,16 @@ note: requires you to update your own OS, close your own ports and generally pro
 	Azure Storage
 	Azure Synapse Analytics
 
-#### SaaS use cases:
+#### SaaS use cases
 - ready-to-go software that works from just about any device
 - cloud provider takes care of availability, backups and patches
 - you don't have to know anything about the software internals or about the patches
 
-Use case examples for cloud models:
-Public cloud model: easy and fast to move to the cloud.
-Private cloud model: transparency/security concerns, privacy and regulatory concerns.
-Hybrid cloud model: keeping sensitive data on-premises while still benefitting from applications running in the public cloud.
-Community cloud model: hospitals sharing medical data.
+#### Use case examples for cloud models
+- Public cloud model: easy and fast to move to the cloud.
+- Private cloud model: transparency/security concerns, privacy and regulatory concerns.
+- Hybrid cloud model: keeping sensitive data on-premises while still benefitting from applications running in the public cloud.
+- Community cloud model: hospitals sharing medical data.
 
 ## Azure Service concepts
 
