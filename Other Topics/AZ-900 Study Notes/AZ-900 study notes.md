@@ -424,8 +424,8 @@ DE Zone 1: Germany
 Best practices for minimizing Azure costs include: Reserved Instances (predict the amount of VMs you need to run for the year and pre-pay for a discount), Quotas (limits around resources), Spending Limits (disable deployment of new resources upon reaching limits), Tags (as a tool for showback or chargeback, and quickly identifying app owner), Azure Cost Management (analyze and predict costs), Azure Hybrid Benefit (licensing benefit, involving running the workloads of your on-premises OS and SQL Server licences in the cloud)
 
 Pricing calculators:
-- **Azure Pricing Calculator** -- estimate costs for combinations of Azure products.
-- **Total Cost of Ownership (TCO) Calculator** -- estimate cost savings when migrating to Azure, along with TCO, over the next five years.
+- **Azure Pricing Calculator** - estimate costs for combinations of Azure products.
+- **Total Cost of Ownership (TCO) Calculator** - estimate cost savings when migrating to Azure, along with TCO, over the next five years.
 
 #### Support Options Available with Azure
 
@@ -440,7 +440,7 @@ Other support plans include 24/7 support via email or phone, with a response wit
 Also available: Azure Knowledge Center, MSDN Forum
 
 **Azure Service Level Agreements (SLAs)**
-An SLA outlines what a service provider will provide to its customers, and what standards the provider will meet. In the context of Azure, an SLA details the commitments for uptime and connectivity. Different services will have different SLAs.
+An **SLA** outlines what a service provider will provide to its customers, and what standards the provider will meet. In the context of Azure, an SLA details the commitments for uptime and connectivity. Different services will have different SLAs.
 
 A **Composite SLA** will involve more than one service, and this is very likely what a company will see going forward because it is very unlikely to be using only one service at a time.
 
