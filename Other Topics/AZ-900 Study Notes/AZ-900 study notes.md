@@ -327,9 +327,11 @@ Includes:
 
 #### Azure Identity Services
 
-In Azure, authentication is provided by Azure AD and authorization is provided by role-based access control (RBAC).
+In Azure, authentication is provided by **Azure AD** and authorization is provided by role-based access control (**RBAC**).
 
-**Azure AD** is for single sign-on (SSO) and application integration - it does not have all the features of Active Directory Domain Services. If you want that, then you need Azure AD Domain Services (Azure AD DS), which is a PaaS offering by Azure but it still does not offer all the same features and cannot (yet) be used to replace on-premises ADDS. Use **Azure AD Connect** to replicate objects from ADDS.
+**Azure AD** is for single sign-on (SSO) and application integration. It does not have all the features of (the commonly used) Active Directory Domain Services. If you want that, then you need Azure AD Domain Services (Azure AD DS), which is a PaaS offering by Azure but it still does not offer all the same features and cannot (yet) be used to replace on-premises ADDS. Use **Azure AD Connect** to replicate objects from ADDS.
+
+**Single sign-on (SSO)** is an authentication method that allows users to sign in using one set of credentials to multiple independent software systems. One option available is called **Federation**, where you set up SSO to work between multiple identity providers.
 
 #### Access Control
 
@@ -348,7 +350,7 @@ The Least Privilege Principle is also part of the **Zero Trust concept:** a mode
 
 #### Locks
 
-The use of a lock can prevent the deletion or modification of a resource group and its contents. 
+The use of a **Lock** can prevent the deletion or modification of a resource group and its contents. 
 
 The two types of locks are "Read-only" and "Delete" where in the former case no resources can be added or removed, while in the latter case you can still add new resources to the resource group - you just can't delete them.
 
@@ -460,6 +462,8 @@ https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-
 
 -**External Identities** is a set of capabilities that enables organizations to secure and manage any external user, including customers and partners. **B2B collaboration** is a capability of Azure AD External Identities that lets you collaborate with users and partners outside of your organization. With B2B collaboration, an external user is invited to sign in to your Azure AD organization using their own credentials.
 
+-**Microsoft Defender for Cloud** is a solution that finds weak spots across your cloud configuration, helps strengthen the overall security posture of your environment, and can protect workloads across multicloud and hybrid environments from evolving threats. It is considered a Cloud Security Posture Management (CSPM) system and a Cloud Workload Protection Platform (CWPP).
+
 ## Azure Pricing and Support concepts
 
 #### Azure Subscriptions 
@@ -538,7 +542,7 @@ An example of a composite SLA: App Service web app (99.95 uptime) and SQL Server
 You can determine the right SLA for your company depending on the following points:
 - balanced cost and complexity with high availability
 - dependencies of the application - will require you to understand the SLAs of those dependencies as well
-- recovery metrics: *RTO* = recovery time objective - max downtime, *RPO* = recovery point objective - max duration of data loss
+- recovery metrics: *RTO* = Recovery Time Objective - max downtime, *RPO* = Recovery Point Objective - max duration of data loss
 - availability metrics: *Mean Time to Recover (MTTR)* = average time it take to restore a component after failure, *Mean Time Between Failures (MTBF)* = how long a component is expected to last until the next failure
 - composite SLA - what your SLAs will combine into
 
