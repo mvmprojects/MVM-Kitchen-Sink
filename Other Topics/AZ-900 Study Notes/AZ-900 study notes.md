@@ -7,10 +7,13 @@ General note: The Azure portal can be viewed on any browser and hence can be vie
 ## Azure Cloud concepts
 
 *Scalability* means the ability to scale, so being able to add more resources when needed.
+
 *Elasticity* means the ability to scale dynamically; automatic upscaling and downscaling, to avoid either a lack or an excess of resources.
+
 *Agility* means requests for new resources and services can be delivered quickly, which is made possible by the cloud. New services can be delivered much more quickly via the cloud than via on-premises.
 
 *Fault tolerance* - able to keep services alive despite component failures.
+
 *Disaster recovery* - able to recover from a major disaster that takes down services.
 
 *Availability* = uptime / (uptime - downtime), where 99.99% availability suggests less than an hour of downtime per year.
@@ -18,16 +21,16 @@ General note: The Azure portal can be viewed on any browser and hence can be vie
 *Economy of Scale*, in the context of the cloud, means that the cloud provider has the benefit of buying in bulk to reduce costs per unit. A small company can then indirectly benefit from this effect by becoming a customer of the cloud provider.
 
 *CapEx* - own infrastructure, with a big initial investment. Value lowers over time. Tax deduction extends over a longer time (varies).
+
 *OpEx* - operational expenditure for "rented" infrastructure, which is easier to compare to revenue on an annual basis to judge the value of those expenses. Tax deduction is possible within the same year because you are paying every month.
 
-**IaaS** runs hardware and virtualization, but everything including the OS and beyond is up to you.
-**PaaS** also runs the OS, the runtime and any middleware in between for you.
-**SaaS** means you have direct access to sophisticated software.
+- **IaaS** runs hardware and virtualization, but everything including the OS and beyond is up to you.
+- **PaaS** also runs the OS, the runtime and any middleware in between for you.
+- **SaaS** means you have direct access to sophisticated software.
 
 Other terms that are sometimes used:
 
-**NaaS** Network as a service.
-**DSaaS** Data Science as a service.
+**NaaS** Network as a service, **DSaaS** Data Science as a service.
 
 #### IaaS use cases
 - temporary high performance computing - rent the machines when you need them.
