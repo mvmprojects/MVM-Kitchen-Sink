@@ -30,7 +30,7 @@ The following terms are used to describe the benefits of using cloud services.
 
 When moving from on-premises to the cloud, some responsibilities will shift to Microsoft. Cloud providers operate under a *Shared Responsibility model:* responsibility is divided between the provider and the customer, where the provider handles the security of the cloud while the customer handles security *inside* their part of the cloud.
 
-#### Cloud Models
+#### Cloud service models
 
 - **IaaS** runs hardware and virtualization, but everything including the OS and beyond is up to you.
 - **PaaS** also runs the OS, the runtime and any middleware in between for you.
@@ -65,11 +65,19 @@ note: requires you to update your own OS, close your own ports and generally pro
 - cloud provider takes care of availability, backups and patches
 - you don't have to know anything about the software internals
 
-#### Use case examples for cloud models
-- Public cloud model: easy and fast to move to the cloud.
-- Private cloud model: transparency/security concerns, privacy and regulatory concerns.
-- Hybrid cloud model: keeping sensitive data on-premises while still benefitting from applications running in the public cloud.
-- Community cloud model: hospitals sharing medical data.
+#### Cloud deployment models 
+
+- public cloud: everything runs on cloud-provider hardware. No local hardware. Some services share hardware with other customers. No CapEx. High availability & agility.
+- private: everything runs on your own datacenter, or at least all the resources in the private cloud are dedicated to a single organization even if hosted in a third-party datacenter. This can help to meet special security and compliance requirements.
+- hybrid: combines public and private clouds. High flexibility. Can run legacy apps in the private cloud and reuse existing infrastructue. Can be difficult to manage.
+- community: version of private cloud that connects different organizations belonging to a single business sector.
+
+#### Use case examples for cloud deployment models
+
+- Public cloud: easy and fast to move to the cloud.
+- Private cloud: transparency/security concerns, privacy and regulatory concerns.
+- Hybrid cloud: keeping sensitive data on-premises while still benefitting from applications running in the public cloud.
+- Community cloud: hospitals sharing medical data, educational institutions sharing research material
 
 ## Azure Service concepts
 
