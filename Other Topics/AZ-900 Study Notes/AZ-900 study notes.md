@@ -6,11 +6,31 @@ General note: The Azure portal can be viewed on any browser and hence can be vie
 
 ## Azure Cloud concepts
 
+*Scalability* means the ability to scale, so being able to add more resources when needed.
+*Elasticity* means the ability to scale dynamically; automatic upscaling and downscaling, to avoid either a lack or an excess of resources.
+*Agility* means requests for new resources and services can be delivered quickly, which is made possible by the cloud. New services can be delivered much more quickly via the cloud than via on-premises.
+
+*Fault tolerance* - able to keep services alive despite component failures.
+*Disaster recovery* - able to recover from a major disaster that takes down services.
+
+*Availability* = uptime / (uptime - downtime), where 99.99% availability suggests less than an hour of downtime per year.
+
+*Economy of Scale*, in the context of the cloud, means that the cloud provider has the benefit of buying in bulk to reduce costs per unit. A small company can then indirectly benefit from this effect by becoming a customer of the cloud provider.
+
+*CapEx* - own infrastructure, with a big initial investment. Value lowers over time. Tax deduction extends over a longer time (varies).
+*OpEx* - operational expenditure for "rented" infrastructure, which is easier to compare to revenue on an annual basis to judge the value of those expenses. Tax deduction is possible within the same year because you are paying every month.
+
 **IaaS** runs hardware and virtualization, but everything including the OS and beyond is up to you.
-**PaaS** also runs the OS, the runtime and any middleware in between.
+**PaaS** also runs the OS, the runtime and any middleware in between for you.
+**SaaS** means you have direct access to sophisticated software.
+
+Other terms that are sometimes used:
+
+**NaaS** Network as a service.
+**DSaaS** Data Science as a service.
 
 #### IaaS use cases
-- temporary high performance computing.
+- temporary high performance computing - rent the machines when you need them.
 - testing an application during release.
 (current state of the OS is always known to you - cloud provider is not going to install/change anything.)
 - only pay for resources in use, keeping configuration in the cloud but stopping the VM when you don't need it.
@@ -34,7 +54,7 @@ note: requires you to update your own OS, close your own ports and generally pro
 #### SaaS use cases
 - ready-to-go software that works from just about any device
 - cloud provider takes care of availability, backups and patches
-- you don't have to know anything about the software internals or about the patches
+- you don't have to know anything about the software internals
 
 #### Use case examples for cloud models
 - Public cloud model: easy and fast to move to the cloud.
@@ -46,7 +66,9 @@ note: requires you to update your own OS, close your own ports and generally pro
 
 #### Basic Resource Hierarchy
 
-**Azure Virtual Machines (VMs)** are software-based computers that run within a physical computer. The physical computer is considered the host and the VMs are often referred to as guests. A VM does not need to run the same operating system as the host.
+**Azure Virtual Machines (VMs)** are software-based computers that run within a physical computer. The physical computer is considered the host and the VMs are often referred to as guests. A VM does not need to run the same operating system as the host. Azure VMs support marketplace and images.
+
+VMs still count as IaaS, because you have total control over the operating system. This means VMs are useful for custom requirements and a high degree of control, as opposed to PaaS offerings.
 
 **Resource Groups** are required groupings for your Azure VMs. All the resources in your resource group should share the same lifecycle. You deploy, update and delete them together. Each resource can only exist in one resource group. You cannot have a resource group within another resource group.
 
@@ -62,7 +84,7 @@ note: requires you to update your own OS, close your own ports and generally pro
 
 **Azure Availability Zones** are physically separate locations within an Azure region that are tolerant to local failures. Some specific Azure regions might not provide any Availability Zones.
 
-**An Availability Set** protects you from downtime caused by issues happening in a datacenter. It involves using fault domains and update domains and requires deploying at least two VMs.
+An **Availability Set** protects you from downtime caused by issues happening in a datacenter. It involves using fault domains and update domains and requires deploying at least two VMs. 
 
 *Update Domains* protect you from planned maintenance events. 
 
@@ -72,62 +94,89 @@ An Availability Set should not be confused with an Availability Zone. The latter
 
 An Availability Set has the disadvantage of requiring you to set up a load balancer in front of the VMs for handling traffic. Other disadvantages include having to explicitly set up new machines, and having to configure them.
 
-A **Scale Set** solves some of the disadvantages of an availability set. It provides options for creating a load balancer or gateway, and allows you to pick the operating system and how many VMs you need. Azure will create as many VMs as you want, up to 1000, in one step.
+A **Scale Set** solves some of the disadvantages of an availability set. It provides options for creating a load balancer or gateway, and allows you to pick the operating system and exactly how many VMs you need. Azure will create as many VMs as you want, up to 1000, in one step. 
+
+The Scale Set is still IaaS, but is one step beyond simply using VMs. As with VMs, you are still in control of the OS and you still have to prepare images etc. However, you now use a single image to create a set of identical VMs. The resulting VMs will have built-in autoscaling features.
+
+The auto-scale feature will automatically start new VMs to handle rising pressure or scale back and deallocate instances. This will provide you with elasticity. Alternatively, you can pick a static amount of VMs.
 
 Scale Sets are deployed in availability sets automatically, so you immediately benefit from multiple fault domains and update domains. Unlike VMs in an availability set, VMs in a Scale Set are also compatible with availability zones, so you will be protected from problems in an Azure datacenter.
 
-Scale Sets come with an auto-scale feature, which will automatically start new VMs to handle rising pressure or scale back and deallocate instances. This will provide you with elasticity.
+*Moving beyond VMs*
+With VMs, the OS has to be replicated across every VM. For optimization reasons you could switch to using containers instead. Every app can then run inside of its own container, instead of on its own OS, within the container runtime. This likely means moving on to Azure Container Instances, the simplest and fastest way to run containers in Azure, and leaving behind IaaS to use PaaS instead. More on this below.
 
-#### Core workload products available in Azure (non-exhaustive list)
+**Azure Load Balancer** provides even traffic distribution with high scalability and availability. It supports both inbound and outbound scenarios. Both UDP and TCP applications are supported. It can be a good idea to use two load balancers - one for external traffic and one for internal traffic.
 
-An **Azure Virtual Network (VNet)** allows Virtual Machines to communicate amongst themselves. You can even use a VNet to communicate between your on-premises resources and your Azure resources.
+**Azure Application Gateway** is similar to Azure Load Balancer but offers more features including a firewall. If you are using two load balancers, one for internal and one for external traffic, then the outer load balancer can be replaced with Gateway. You can then use a feature called "SSL termination" to decrypt traffic (move from https to http) and internally use unencrypted traffic to reduce the processing power required to handle requests.
+
+Gateway can also be placed in front of multiple App Services, not just in front of multiple VMs.
+
+**Content Delivery Network:** Handles static content for web applications, such as images and stylesheets. This content can then be distributed across the world, across muliple POP (point of presence) locations, to reduce latency for users living in different continents. Microsoft has over 120 of these locations (as of 2020).
+
+**ExpressRoute** lets you extend your on-premises networks into the Microsoft cloud over a private connection with the help of a connectivity provider. Can be used to connect to both Azure services and Microsoft 365 services.
+
+#### Workload products available in Azure (non-exhaustive list)
 
 **Azure Compute Services** are the hosting services responsible for hosting and running the application workloads. These include Azure Virtual Machines (VMs), Azure Container Service, Azure App Services etc.
 
 Serverless products include: **Azure Functions**, **Logic Apps**, **Event Grid**.
 
-**Azure Functions:** A Function is code that runs when something triggers it. You can write code without having to worry about deploying it or about designing elasticity - as requests increase, Functions will meet the demand with as many resources as needed and then automatically scale down as requests fall.
+**Azure Functions:** A Function is designed for microservices. It is basically a small piece of code that runs when something triggers it. Recommended for short-lived, event-driven processes. You can write code without having to worry about deploying it or about designing elasticity - as requests increase, Functions will meet the demand with as many resources as needed and then automatically scale down as requests fall. Functions are PaaS but are sometimes called "serverless". You can have a (cheap) consumption-based plan or a dedicated plan for your hosting/pricing model.
 
 **Logic Apps:** Create and run workflows with little to no code. These are similar to Function Apps in that they are kicked off by a trigger. Offers a visual designer and pre-built operations.
 
 **Event Grid:** An event broker to integrate applications using events (where an event is the smallest amount of info that fully describes something that happened in the system). Events can be communicated to other applications and services, and Azure Event Grid can guarantee availability of the resulting event-driven architecture by spreading across fault domains/availability zones.
 
-**App Service Plan:** Every web app you create runs inside of an App Service plan. Multiple apps can run inside of a single App Service plan.
+**Azure Container Instances (ACI)** is a PaaS service that offers the ability to run containerized applications easily. This is a simple service for simple use cases, with no autoscaling and a maximum of 20 nodes.
+
+**Azure Kubernetes Service (AKS)** is an opensource, high-scale, PaaS container orchestration service. It can scale to add additional containers when needed and it can then scale back when the needs are reduced. It’s responsible for monitoring containers, and ensuring that they’re always running. It has a minimum of 3 nodes and a max of 100.
+
+**App Service Plan:** A PaaS service designed as an enterprise grade web application service. Every web app you create runs inside of an App Service plan. Multiple apps can run inside of a single App Service plan.
+
+You can create a default C# ASP.NET web app in visual studio and then very quickly deploy this to the App Service. Many other programming languages are supported as well. You sacrifice a large amount of control over the platform/hardware in exchange for easy maintenance and autoscaling.
 
 The following pricing tiers are available in App Service: 
 - Free - no-cost
 - Shared - low-cost
 - Basic, Standard, Premium, and PremiumV2 - highest cost tiers with additional features
 
-"You are charged for App Service plans even when no web apps are running in them. If you do have web apps in your App Service plan, you
-are still charged if you stop the web apps. The only way to avoid being billed for an App Service plan is to delete it."
+"You are charged for App Service plans even when no web apps are running in them. If you do have web apps in your App Service plan, you are still charged if you stop the web apps. The only way to avoid being billed for an App Service plan is to delete it."
 
-**Azure Container Instances (ACI)** is a PaaS service that offers the ability to run a containerized application easily.
+**Azure SQL Database:** a PaaS offering for SQL Server (relational) database hosting. Could also be called DBaaS or database as a service. Provides rich query capabilities.
 
-**Azure Kubernetes Service (AKS)** is a container orchestration service. This means that it’s responsible for monitoring containers, and ensuring that they’re always running. It can also scale to add additional containers when needed and it can then scale back when the needs are reduced.
+**Azure SQL Managed Instance:** offers the same capabilities as on-premises SQL Server but in the cloud. More expensive than Azure Sql Database but offers more features.
 
-**Azure SQL Database:** a PaaS offering for SQL Server (relational) database hosting.
+**SQL Data Warehouse:** a version of Sql Server for massively parallel processing operations, so for Big Data.
 
-**Cosmos DB:** a hosted NoSQL (non-relational) database system.
+**Cosmos DB:** a hosted, globally distributed, NoSQL (non-relational) database system. Designed for highly responsive and/or multi-regional applications.
+
+An **Azure Virtual Network (VNet)** is an emulation of a physical networking infrastructure that allows Virtual Machines to communicate amongst themselves. You can even use a VNet to communicate between your on-premises resources and your Azure resources. 
+
+VNets can be segmented into subnets. This can be done to group related resources, and to apply security rules and filters across multiple resources within the same subnet. Network filtering will function through Network Security Groups or Application Security Groups - more on those topics will be discussed in the section *Securing Networks*.
+
+Multiple VNets can be linked up with *VNet Peering*, and then act as one. A VNet can only reside within a single region, forcing you to create multiple VNs across regions. VNet peering can still join the VNets together. Another way to accomplish this goal across is with VPN Gateway, depending on your company's needs.
 
 #### Other notes:
 
--The initial Domain Name for a new Azure AD "tenant" cannot be changed and cannot be deleted. You can only add custom domain names for your business.
+-The initial *Domain Name* for a new Azure AD tenant cannot be changed and cannot be deleted. You can only add custom domain names for your business.
 
--SKU stands for "Stock Keeping Unit", used to refer to Virtual Machine SKUs in Azure. SKUs represent different, distinct shapes of purchasable products (specific VMs). These can be compared in terms of performance and costs.
+-**SKU** stands for *Stock Keeping Unit*, used to refer to Virtual Machine SKUs in the context of Azure. SKUs represent different, distinct shapes of purchasable products (specific VMs). These can be compared in terms of performance and costs.
 
 ## Azure Storage Concepts
 
 #### Azure Storage Services
 
 - blob storage: unstructured data like files and documents
-- file storage: supports SMB protocol and can be attached to network drives
-- disk storage: stores the VM disks as used by IaaS VMs
-- table storage: store (semi-)structered data in the form of NoSQL non-relational data
-- queue storage: store/retrieve messages for async applications that pass messages
+- file storage: supports SMB protocol and can be attached to network drives. so it is storage for files accessed via shared drive protocols. it is designed to implement lift-and-shift scenarios or to extend on-premise file shares.
+- disk storage: disk emulation in the cloud, to store the VM disks as used by IaaS VMs. disks can be managed or unmanaged.
+- table storage: store (semi-)structered data in the form of NoSQL non-relational data. designed for fast access.
+- queue storage: store/retrieve messages for async applications that pass messages. meant for small pieces of data.
 
 #### Account Types
 
+An **Azure Storage Account** is highly scalable and highly durable.
+
+Account types include:
 - general purpose v2: blobs (binary large object), files, tables, queues; most redundancy options
 - premium block blob: best for high transaction rates or low storage latency
 - premium file share: best for enterprise/high performance applications that need to scale
@@ -139,16 +188,16 @@ note: you can't change the storage account type after it's been created.
 
 #### Categories of Redundancy Options
 
-- Redundancy in primary region: LRS and ZRS
-- Redundancy in a secondary region: GRS or GZRS
-- Read access to the secondary region when using GRS or GZRS (normally not available until a failover)
+- Redundancy in primary region: **LRS** and **ZRS**
+- Redundancy in a secondary region: **GRS** or **GZRS**
+- *Read access to the secondary region* when using **GRS** or **GZRS** (normally not available until a failover)
 
 #### Data Redundancy Options
 
-- LRS: Locally-redundant storage; the cheapest option; protection against server-rack and drive failures
-- ZRS: Zone-redundant storage; recommended for high availability; protection against datacenter-level failures
-- GRS: Geo-redundant storage; recommended for backups; failover capabilities in a secondary region (works even if the entire primary region is harmed by a regional disaster). you cannot choose the secondary region as this is decided by microsoft. paired regions are listed online.
-- GZRS: Geo-zone-redundant storage; offers the protection of both GRS and ZRS.
+- **LRS: Locally-redundant storage** - the cheapest option; protection against server-rack and drive failures
+- **ZRS: Zone-redundant storage** - recommended for high availability; protection against datacenter-level failures
+- **GRS: Geo-redundant storage** - recommended for backups; failover capabilities in a secondary region (works even if the entire primary region is harmed by a regional disaster). You cannot choose the secondary region as this is decided by microsoft. Paired regions are listed online.
+- **GZRS: Geo-zone-redundant storage** - offers the protection of both GRS and ZRS.
 
 #### Blob Access Tiers
 
@@ -168,13 +217,14 @@ You can move data between access tiers via the feature known as Blob Lifecycle M
 Data transfer considerations: amount of data, frequency of data transfer, available network bandwidth
 
 Online options for data transfer:
-- Azure Portal: the basic way of accessing Azure via the browser
-- Azure Storage Explorer: with a familiar GUI similar to the File Explorer in windows, so tasks can be delegated to business users; this explorer uses AzCopy behind the scenes.
-- AzCopy: command line tool that can be used to upload and manage data, and can be used to change access tiers from hot to cool etc.
-- PowerShell
-- Azure CLI
-- Storage Client Libraries (SDKs)
-- Azure File Sync: to extend on-premises data to Azure. Frequently accessed data is kept on premises and less-frequently used data is automatically stored on Azure.
+- **Azure Portal:** the basic way of accessing Azure via the browser
+- **Azure Storage Explorer:** with a familiar GUI similar to the File Explorer in windows, so tasks can be delegated to business users; this explorer uses AzCopy behind the scenes.
+- **AzCopy:** command line tool that can be used to upload and manage data, and can be used to change access tiers from hot to cool etc.
+- **PowerShell:** tool to designed to assist automation. Familiar to IT professionals with a history of working with Windows servers. Becomes multi-platform with the aid of PowerShell Core.
+- **Azure CLI:** command line interface for Azure with native OS terminal scripting - you will have different scripting capabilities depending on which native OS terminal you are using.
+- **Azure Cloud Shell:** offers access to Azure CLI or PowerShell from the browser via Azure Portal. Even works through Azure mobile app.
+- **Storage Client Libraries (SDKs)**
+- **Azure File Sync:** to extend on-premises data to Azure. Frequently accessed data is kept on premises and less-frequently used data is automatically stored on Azure.
 
 #### Azure Migrate
 
@@ -223,7 +273,7 @@ You can collect data from virtual machines running outside of Azure by installin
 
 **Log Analytics** has pre-built queries for different purposes, such as alerts, performance, and audit logs for Azure AD. You can send metrics to Log Analytics so they can be queried like other logs.
 
-The "Insights" menu section in Azure Monitor refers to curated visualizations for specific services. Application Insights is for your web applications, Network insights is for your deployed network resources, etc.
+The *Insights* menu section in Azure Monitor refers to curated visualizations for specific services. Application Insights is for your web applications, Network insights is for your deployed network resources, etc.
 
 You can send logs to a storage account and specify retention (an expiration date), or you can send logs to a third-party tool.
 
@@ -237,7 +287,7 @@ Data collection in Logs will incur ingestion and retention costs. Before enablin
 
 #### Azure Advisor 
 
-This is a "personalized cloud consultant" and a tool that can make recommendations on how to improve performance, availability, security and on how to save costs. 
+This is a "personalized cloud consultant" and a tool that can make recommendations on how to improve performance, availability, security and on how to save costs. All of the recommendations from Azure Advisor are free.
 
 Includes Azure Advisor Security Assistance, which integrates with Azure Security Center, to provide best practice security recommendations.
 
@@ -268,13 +318,18 @@ In Azure, authentication is provided by Azure AD and authorization is provided b
 
 #### Access Control
 
-Role-based access control (RBAC)
+**Role-based access control (RBAC)**
 Three most commonly used, built-in roles for working with resources are: 
 - Owner: can manage everything about the resource
 - Contributor: can do everything except grant other users access to resources
 - Reader: read-only access 
 
-You should start with using the (many) built-in roles, create custom roles only when needed, and always stick with the Least Privilege Principle where users have just enough access privileges to do their jobs and no more than that.
+You should start with using the (many) built-in roles, create custom roles only when needed, and always stick with the *Least Privilege Principle* where users have just enough access privileges to do their jobs and no more than that.
+
+The Least Privilege Principle is also part of the **Zero Trust concept:** a model used by Microsoft for implementing security that teaches to "never trust, always verify".
+- use least privilege access - limit user access with just-in-time (JIT) and just-enough-access (JEA), risk-based adaptive policies, and data protection measures
+- "assume breach" - verify end-to-end encryption and use analytics to get visibility and drive threat detection
+- verify explicitly - always authenticate and authorize on all available data points, including identity, location, device health and more.
 
 #### Locks
 
@@ -328,6 +383,8 @@ Make sure NSGs are configured once and do not need to be readjusted every time a
 - used as a source or destination in NSG.
 - create the application security group, link it to resources, and then use this group when working with NSGs.
 
+**VPN Gateway** allows you to connect a VNet to your on-premises environment over the public internet, or to connect VNets to each other for cross-regional networks.
+
 **Azure Firewall** 
 This is an Azure-managed stateful firewall service that protects access to your virtual networks. Features include threat intelligence (learning about what traffic is harmless and what is suspicious), outbound and inbound NAT, integration with Azure Monitor, network traffic filtering rules and unrestricted scalability.
 
@@ -370,7 +427,7 @@ In the **Azure Service Trust Portal** you will find Compliance Manager, Trust Do
 
 **Azure Special Regions** exist for compliance and legal reasons. They are not generally available and you must request access from Microsoft to use them. These regions are US Gov, China and Germany.
 
-To enforce isolation of your data, you can utilize Dedicated Hosts. Each of these is dedicated to a single organization. This host-level isolation can help you meet certain compliance requirements.
+To enforce isolation of your data, you can utilize *Dedicated Hosts*. Each of these is dedicated to a single organization. This host-level isolation can help you meet certain compliance requirements.
 
 ## Azure Pricing and Support concepts
 
@@ -381,7 +438,7 @@ A **Subscription** is a logical container of Azure resources and administration.
 - Resource Group 
 - Resources that share a lifecycle.
 
-An Azure Account is used for contact information and billing details regarding a Subscription. Every new Subscription has to be associated with an Azure Account.
+An **Azure Account** is used for contact information and billing details regarding a Subscription. Every new Subscription has to be associated with an Azure Account.
 
 The elements of a Subscription are as follows:
 - legal agreement
@@ -392,8 +449,8 @@ The elements of a Subscription are as follows:
 A Subscription has a trust relationship with at least one **Azure Active Directory**. An AAD directory can have trusts with multiple subscriptions, but each Subscription can trust only one AAD directory for identity and access management.
 
 Reasons to add a new Subscription:
-- when you expect to exceed the limits within a Subscription
-- to divide permissions among department heads and separate security
+- when you expect to exceed the limits within a Subscription (set by Microsoft)
+- to divide permissions among department heads and separate security concerns
 - to constrain/scope resource providers (allow specific services to run and disallow other services)
 - delegate administration through RBAC
 
@@ -412,7 +469,7 @@ Options for purchasing Azure products and services:
 
 Azure services that are always free (at the time of writing) include Security Center (free tier), Azure DevOps 5 users, DevTest Labs, Event Grid with 100,000 operations per month etc.
 
-Factors affecting cost include resource types, service types (Direct, Enterprise Agreement etc), locations, egress (outbound) traffic. Sending data into Azure ingress is free.
+Factors affecting cost include resource types, service types (Direct, Enterprise Agreement etc), locations, egress (outbound) traffic. Sending data into Azure (ingress) is free.
 
 An **Azure Zone** is a geographical grouping of Azure Regions for billing purposes. Data transfer pricing is based on the Zones.
 
@@ -436,14 +493,14 @@ Pricing calculators:
 Other support plans include 24/7 support via email or phone, with a response within the hour.
 - Standard: production environment - help with architecture based on best practices, some support for onboarding practices, service reviews, Azure Advisor consultations. Access to web seminars for training purposes. Proactive guidance from a ProDirect delivery manager.
 - Professional Direct: business critical - similar to Standard
-- Premier: substantial dependence - customer-specific architectural support, reviews led by technical account manager (TAM), on-demand training, Azure Event Management (with additional fee) for launch support
+- Premier: substantial dependence - customer-specific architectural support, reviews led by Technical Account Manager (TAM), on-demand training, Azure Event Management (with additional fee) for launch support
 
-Also available: Azure Knowledge Center, MSDN Forum
+Also available for support: Azure Knowledge Center, MSDN Forum
 
 **Azure Service Level Agreements (SLAs)**
 An **SLA** outlines what a service provider will provide to its customers, and what standards the provider will meet. In the context of Azure, an SLA details the commitments for uptime and connectivity. Different services will have different SLAs.
 
-A **Composite SLA** will involve more than one service, and this is very likely what a company will see going forward because it is very unlikely to be using only one service at a time.
+A **Composite SLA** will involve more than one service, and this is very likely what a company will see going forward because it is most likely using more than one service at a time.
 
 An example of a composite SLA: App Service web app (99.95 uptime) and SQL Server database (99.99 uptime) put together would have a 99.94 uptime SLA.
 
@@ -469,7 +526,7 @@ When previews go live they are considered to fall under **General Availability (
 
 You can monitor feature updates and product changes via the What's New page in Azure Portal, via azure.microsoft.com/updates, or by reading the announcements on the official Azure Blog https://azure.microsoft.com/en-us/blog/topics/announcements/
 
-## Sample Exam Questions
+## Random Sample Exam Questions
 
 Q: Does MS provide a separate portal for Azure portal specific previews? 
 A: Yes.
@@ -480,7 +537,7 @@ Answer: Option D: Azure Data Lake. The other options should be used for frequent
 
 Q: A company needs 50 custom VMs. 20 are windows-based and 30 are ubuntu. Which option would reduce administrative effort?
 Options: Azure Load Balancer, Azure Web Apps, Azure Traffic Manager, Azure Scale Sets.
-Answer: Option D: Azure Scale Sets. the other options are incorrect because Load Balancer is for diverting traffic to back-end VMs at the network layer, Web Apps is for hosting web apps, and Traffic Manager is used for DNS-based traffic routing.
+Answer: Option D: Azure Scale Sets. The other options are incorrect because Load Balancer is for diverting traffic to back-end VMs at the network layer, Web Apps is for hosting web apps, and Traffic Manager is used for DNS-based traffic routing.
 
 Q: A company wants to enforce Multi-factor authentication for users entering Azure. Which option lets them do this?
 Options: Azure Service Trust Portal, Azure Security Center, Azure DDoS Protection, Azure privileged identity management
