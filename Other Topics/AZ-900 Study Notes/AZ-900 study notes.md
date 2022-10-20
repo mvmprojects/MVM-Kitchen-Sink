@@ -6,6 +6,10 @@ General note: The Azure portal can be viewed on any browser and hence can be vie
 
 ## Azure Cloud concepts
 
+#### General Cloud Terms
+
+The following terms are used to describe the benefits of using cloud services.
+
 *Scalability* means the ability to scale, so being able to add more resources when needed.
 
 *Elasticity* means the ability to scale dynamically; automatic upscaling and downscaling, to avoid either a lack or an excess of resources.
@@ -22,7 +26,9 @@ General note: The Azure portal can be viewed on any browser and hence can be vie
 
 *CapEx* - own infrastructure, with a big initial investment. Value lowers over time. Tax deduction extends over a longer time (varies).
 
-*OpEx* - operational expenditure for "rented" infrastructure, which is easier to compare to revenue on an annual basis to judge the value of those expenses. Tax deduction is possible within the same year because you are paying every month.
+*OpEx* - operational expenditure for "rented" infrastructure, which is easier to compare to revenue on an annual basis to judge the value of those expenses. Tax deduction is possible within the same year because you are paying every month. The cloud can help you focus on OpEx instead of CapEx.
+
+#### Cloud Models
 
 - **IaaS** runs hardware and virtualization, but everything including the OS and beyond is up to you.
 - **PaaS** also runs the OS, the runtime and any middleware in between for you.
