@@ -430,7 +430,7 @@ To classify on-premises documents, you can use **Azure Information Scanner**. Fo
 
 **Azure Security Center** reports on security threats as well as compliance status against certain standards. It is immediately available for PaaS services. For non-Azure services, you can deploy agents for monitoring.
 
-Included with Security Center is **Azure Sentinel**, which is intelligent and handles:
+Included with Security Center is **Azure Sentinel**, which is intelligent - uses AI to detect new threats - and handles:
 - Security information event management (SIEM)
 - Security orchestration automated response (SOAR)
 
@@ -538,7 +538,7 @@ An example of a composite SLA: App Service web app (99.95 uptime) and SQL Server
 You can determine the right SLA for your company depending on the following points:
 - balanced cost and complexity with high availability
 - dependencies of the application - will require you to understand the SLAs of those dependencies as well
-- recovery metrics: *RTO* = max downtime, *RPO* = max duration of data loss
+- recovery metrics: *RTO* = recovery time objective - max downtime, *RPO* = recovery point objective - max duration of data loss
 - availability metrics: *Mean Time to Recover (MTTR)* = average time it take to restore a component after failure, *Mean Time Between Failures (MTBF)* = how long a component is expected to last until the next failure
 - composite SLA - what your SLAs will combine into
 
