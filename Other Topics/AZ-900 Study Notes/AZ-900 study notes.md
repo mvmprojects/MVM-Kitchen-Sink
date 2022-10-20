@@ -36,12 +36,10 @@ When moving from on-premises to the cloud, some responsibilities will shift to M
 - **PaaS** also runs the OS, the runtime and any middleware in between for you.
 - **SaaS** means you have direct access to sophisticated software.
 
-Other terms that are sometimes used:
-
-**NaaS** Network as a service, **DSaaS** Data Science as a service.
+Other terms that are sometimes used: **NaaS** = Network as a service, **DSaaS** = Data Science as a service.
 
 #### IaaS use cases
-- temporary high performance computing - rent the machines when you need them.
+- temporary high performance computing - rent the machines only when you need them.
 - testing an application during release.
 (current state of the OS is always known to you - cloud provider is not going to install/change anything.)
 - only pay for resources in use, keeping configuration in the cloud but stopping the VM when you don't need it.
@@ -142,7 +140,7 @@ Serverless products include: **Azure Functions**, **Logic Apps**, **Event Grid**
 
 **App Service Plan:** A PaaS service designed as an enterprise grade web application service. Every web app you create runs inside of an App Service plan. Multiple apps can run inside of a single App Service plan.
 
-You can create a default C# ASP.NET web app in visual studio and then very quickly deploy this to the App Service. Many other programming languages are supported as well. You sacrifice a large amount of control over the platform/hardware in exchange for easy maintenance and autoscaling.
+You can create a default C# ASP.NET web app in visual studio and then very quickly deploy this to the App Service. Many other programming languages are also supported. You sacrifice a large amount of control over the platform/hardware in exchange for easy maintenance and autoscaling.
 
 The following pricing tiers are available in App Service: 
 - Free - no-cost
@@ -165,13 +163,13 @@ An **Azure Virtual Network (VNet)** is an emulation of a physical networking inf
 
 VNets can be segmented into subnets. This can be done to group related resources, and to apply security rules and filters across multiple resources within the same subnet. Network filtering will function through Network Security Groups or Application Security Groups - more on those topics will be discussed in the section *Securing Networks*.
 
-Multiple VNets can be linked up with *VNet Peering*, and then act as one. A VNet can only reside within a single region, forcing you to create multiple VNs across regions. VNet peering can still join the VNets together. Another way to accomplish this goal across is with VPN Gateway, depending on your company's needs.
+Multiple VNets can be linked up with *VNet Peering*, and then act as one. A VNet can only reside within a single region, forcing you to create multiple VNs across regions. VNet peering can still join the VNets together. Another way to accomplish this goal is with VPN Gateway, depending on your company's needs.
 
 **ExpressRoute** lets you extend your on-premises networks into the Microsoft cloud over a private connection with the help of a connectivity provider. Can be used to connect to both Azure services and Microsoft 365 services.
 
 #### Other notes:
 
--**Azure DNS** is a hosting service for DNS domains that provides name resolution. You can't use Azure DNS to buy a domain name. Azure DNS supports private DNS domains - this feature allows you to use your own custom domain names in your private virtual networks.
+-**Azure DNS** is a hosting service for DNS domains that provides name resolution. You can't use Azure DNS to buy a domain name - For an annual fee, you can buy a domain name by using App Service domains or a third-party domain name registrar. Azure DNS supports private DNS domains - this feature allows you to use your own custom domain names in your private virtual networks.
 
 -The initial domain name for a new Azure AD tenant cannot be changed and cannot be deleted. You can only add custom domain names for your business.
 
