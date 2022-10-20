@@ -24,9 +24,11 @@ The following terms are used to describe the benefits of using cloud services.
 
 *Economy of Scale*, in the context of the cloud, means that the cloud provider has the benefit of buying in bulk to reduce costs per unit. A small company can then indirectly benefit from this effect by becoming a customer of the cloud provider.
 
-*CapEx* - own infrastructure, with a big initial investment. Value lowers over time. Tax deduction extends over a longer time (varies).
+*CapEx* - capital expenditure for own infrastructure, with a big initial investment. Value lowers over time. Tax deduction extends over a longer time (varies).
 
 *OpEx* - operational expenditure for "rented" infrastructure, which is easier to compare to revenue on an annual basis to judge the value of those expenses. Tax deduction is possible within the same year because you are paying every month. The cloud can help you focus on OpEx instead of CapEx.
+
+When moving from on-premises to the cloud, some responsibilities will shift to Microsoft. Cloud providers operate under a *Shared Responsibility model:* responsibility is divided between the provider and the customer, where the provider handles the security of the cloud while the customer handles security *inside* their part of the cloud.
 
 #### Cloud Models
 
@@ -37,8 +39,6 @@ The following terms are used to describe the benefits of using cloud services.
 Other terms that are sometimes used:
 
 **NaaS** Network as a service, **DSaaS** Data Science as a service.
-
-When moving from on-premises to the cloud, some responsibilities will shift to Microsoft. Cloud providers operate under a *Shared Responsibility model:* responsibility is divided between the provider and the customer, where the provider handles the security of the cloud while the customer handles security *inside* the cloud.
 
 #### IaaS use cases
 - temporary high performance computing - rent the machines when you need them.
@@ -335,8 +335,7 @@ In Azure, authentication is provided by **Azure AD** and authorization is provid
 
 #### Access Control
 
-**Role-based access control (RBAC)**
-Three most commonly used, built-in roles for working with resources are: 
+**Role-based access control (RBAC):** The most commonly used, built-in roles for working with resources are: 
 - Owner: can manage everything about the resource
 - Contributor: can do everything except grant other users access to resources
 - Reader: read-only access 
