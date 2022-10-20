@@ -416,11 +416,17 @@ Use to override default system routes. Often used when traffic must be filtered 
 
 #### Reporting and Compliance
 
-**Azure Information Protection (AIP)** is used to classify documents and emails, labeled as confidential etc. Labeled documents can be protected with encryption and can then only be opened with the appropriate rights. AIP labels can be applied manually, automatically, or show up as recommendations. 
-
 Three common security and reporting resources are Azure Monitor (logs), Azure Service Health (report incidents), Azure advanced thread protection (identify suspicious activity).
 
-**Azure Key Vault** is for secrets management, key management and certificate management. Can enable logging and enable centralized administration of secrets. It is recommended to create new key vaults for new applications/environments, to create regular backups, to turn on logging and set up alerts and to turn on soft delete and purge protection.
+**Azure Information Protection (AIP)** is used to classify documents and emails, labeled as Confidential etc. Labeled documents can be protected with encryption and can then only be opened with the appropriate rights. AIP labels can be applied manually, automatically, or show up as recommendations. 
+
+To classify on-premises documents, you can use **Azure Information Scanner**. For cloud-based data, use **Microsoft cloud app scanner**. Ideally documents should be classified when they are created.
+
+**Azure Key Vault** is for secrets management, key management and certificate management. Can enable logging and enable centralized administration of secrets. It is recommended: 
+- to create new key vaults for new applications/environments.
+- to create regular backups.
+- to turn on logging and set up alerts.
+- to turn on soft delete and purge protection.
 
 **Azure Security Center** reports on security threats as well as compliance status against certain standards. It is immediately available for PaaS services. For non-Azure services, you can deploy agents for monitoring.
 
