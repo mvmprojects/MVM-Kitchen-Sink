@@ -69,7 +69,7 @@ note: requires you to update your own OS, close your own ports and generally pro
 
 - public cloud: everything runs on cloud-provider hardware. No local hardware. Some services share hardware with other customers. No CapEx. High availability & agility.
 - private: everything runs on your own datacenter, or at least all the resources in the private cloud are dedicated to a single organization even if hosted in a third-party datacenter. This can help to meet special security and compliance requirements.
-- hybrid: combines public and private clouds. High flexibility. Can run legacy apps in the private cloud and reuse existing infrastructue. Can be difficult to manage.
+- hybrid: combines public and private clouds. High flexibility. Can run legacy apps in the private cloud and reuse existing infrastructure. Can be difficult to manage.
 - community: version of private cloud that connects different organizations belonging to a single business sector.
 
 #### Use case examples for cloud deployment models
@@ -89,7 +89,7 @@ VMs still count as IaaS, because you have total control over the operating syste
 
 **Resource Groups** are required groupings for your Azure VMs. All the resources in your resource group should share the same lifecycle. You deploy, update and delete them together. Each resource can only exist in one resource group. You cannot have a resource group within another resource group.
 
-**Azure Subscriptions** contain one or more Resource Groups.
+**Azure Subscriptions** contain one or more Resource Groups. More on this in *Azure Pricing and Support concepts*.
 
 **Management Groups** are folders that can contain one or more Subscriptions, or more Management Groups.
 
