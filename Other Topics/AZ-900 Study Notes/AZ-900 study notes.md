@@ -28,7 +28,7 @@ The following terms are used to describe the benefits of using cloud services.
 
 *OpEx* - operational expenditure for "rented" infrastructure, which is easier to compare to revenue on an annual basis to judge the value of those expenses. Tax deduction is possible within the same year because you are paying every month. The cloud can help you focus on OpEx instead of CapEx.
 
-When moving from on-premises to the cloud, some responsibilities will shift to Microsoft. Cloud providers operate under a *Shared Responsibility model:* responsibility is divided between the provider and the customer, where the provider handles the security of the cloud while the customer handles security *inside* their part of the cloud.
+When moving from on-premises to the cloud, some responsibilities will shift to Microsoft. Cloud providers operate under a *Shared Responsibility model:* responsibility is divided between the provider and the customer, where the provider handles the security of the cloud while the customer handles security *inside* their part of the cloud. Shared Responsibility in this context can also apply to other topics such as disaster recovery, because not all services automatically replicate data or automatically fall back.
 
 #### Cloud service models
 
@@ -98,6 +98,8 @@ VMs still count as IaaS, because you have total control over the operating syste
 #### Regions, Zones and Availability/Scale Sets
 
 **Azure Regions** are geological locations with one or more Availability Zones (with some exceptions) where one or more data centers, which house Azure servers, are located.
+
+**Region Pairs** are two regions linked together for disaster recovery purposes. If one region fails due to a major disaster then services will failover to the other region in the pair.
 
 **Azure Availability Zones** are physically separate locations within an Azure region that are tolerant to local failures. Some specific Azure regions might not provide any Availability Zones.
 
@@ -217,7 +219,7 @@ note: you can't change the storage account type after it's been created.
 
 - **LRS: Locally-redundant storage** - the cheapest option; protection against server-rack and drive failures
 - **ZRS: Zone-redundant storage** - recommended for high availability; protection against datacenter-level failures
-- **GRS: Geo-redundant storage** - recommended for backups; failover capabilities in a secondary region (works even if the entire primary region is harmed by a regional disaster). You cannot choose the secondary region as this is decided by microsoft. Paired regions are listed online.
+- **GRS: Geo-redundant storage** - recommended for backups; failover capabilities in a secondary region (works even if the entire primary region is harmed by a regional disaster). You cannot choose the secondary region as this is decided by microsoft. Region pairs are listed online.
 - **GZRS: Geo-zone-redundant storage** - offers the protection of both GRS and ZRS.
 
 #### Blob Access Tiers
@@ -461,6 +463,10 @@ To enforce isolation of your data, you can utilize *Dedicated Hosts*. Each of th
 
 -**Azure AD Conditional Access:** Conditional Access policies at their simplest are if-then statements. If a user wants to access a resource, then they must complete an action, such as multi-factor authentication. Filters for policies can focus on (among other things) users, devices, (trusted) locations or specific applications. They can be set to Block or Grant access based on the context. A commonly applied policy is to require MFA for users with administrative roles.
 https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/overview
+
+-**Azure AD Identity Protection** detects risks such as unfamiliar sign-in properties, anonymous IP address usage, malware-linked IP addresses and leaked credentials. The risk signals can trigger remediation such as enforcing MFA or a password change.
+
+**Azure AD Privileged Identity Management** can enforce the mandatory use of MFA to access specific roles.
 
 -*Passwordless* involves replacing the use of a password with *something you are or know* such as biometric data or a PIN, combined with *something you have* such as a phone or security key. One such authentication option is *Hello for Windows*, where the biometric and PIN credentials are directly tied to the user's PC, which prevents access from anyone other than the owner. Hello for Windows integrates with Azure AD.
 https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-passwordless
