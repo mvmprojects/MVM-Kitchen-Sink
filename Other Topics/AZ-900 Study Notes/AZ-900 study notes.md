@@ -171,7 +171,9 @@ Multiple VNets can be linked up with *VNet Peering*, and then act as one. A VNet
 
 #### Other notes:
 
--The initial *Domain Name* for a new Azure AD tenant cannot be changed and cannot be deleted. You can only add custom domain names for your business.
+-**Azure DNS** is a hosting service for DNS domains that provides name resolution. You can't use Azure DNS to buy a domain name. Azure DNS supports private DNS domains - this feature allows you to use your own custom domain names in your private virtual networks.
+
+-The initial domain name for a new Azure AD tenant cannot be changed and cannot be deleted. You can only add custom domain names for your business.
 
 -**SKU** stands for *Stock Keeping Unit*, used to refer to Virtual Machine SKUs in the context of Azure. SKUs represent different, distinct shapes of purchasable products (specific VMs). These can be compared in terms of performance and costs.
 
@@ -396,7 +398,7 @@ Make sure NSGs are configured once and do not need to be readjusted every time a
 - used as a source or destination in NSG.
 - create the application security group, link it to resources, and then use this group when working with NSGs.
 
-**VPN Gateway** allows you to connect a VNet to your on-premises environment over the public internet, or to connect VNets to each other for cross-regional networks.
+**Azure VPN Gateway** allows you to connect a VNet to your on-premises environment over the public internet, or to connect VNets to each other for cross-regional networks.
 
 **Azure Firewall** 
 This is an Azure-managed stateful firewall service that protects access to your virtual networks. Features include threat intelligence (learning about what traffic is harmless and what is suspicious), outbound and inbound NAT, integration with Azure Monitor, network traffic filtering rules and unrestricted scalability.
