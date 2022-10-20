@@ -446,7 +446,7 @@ To enforce isolation of your data, you can utilize *Dedicated Hosts*. Each of th
 
 #### Other notes:
 
--**Azure AD Conditional Access:** Conditional Access policies at their simplest are if-then statements. If a user wants to access a resource, then they must complete an action, such as multi-factor authentication. Filters for policies can focus on devices, (trusted) locations, specific applications, and can be set to Block or Grant access. A commonly applied policy is to require MFA for users with administrative roles.
+-**Azure AD Conditional Access:** Conditional Access policies at their simplest are if-then statements. If a user wants to access a resource, then they must complete an action, such as multi-factor authentication. Filters for policies can focus on (among other things) users, devices, (trusted) locations or specific applications. They can be set to Block or Grant access based on the context. A commonly applied policy is to require MFA for users with administrative roles.
 https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/overview
 
 -*Passwordless* involves replacing the use of a password with *something you are or know* such as biometric data or a PIN, combined with *something you have* such as a phone or security key. One such authentication option is *Hello for Windows*, where the biometric and PIN credentials are directly tied to the user's PC, which prevents access from anyone other than the owner. Hello for Windows integrates with Azure AD.
