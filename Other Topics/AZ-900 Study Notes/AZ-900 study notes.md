@@ -38,6 +38,8 @@ Other terms that are sometimes used:
 
 **NaaS** Network as a service, **DSaaS** Data Science as a service.
 
+When moving from on-premises to the cloud, some responsibilities will shift to Microsoft. Cloud providers operate under a *Shared Responsibility model:* responsibility is divided between the provider and the customer, where the provider handles the security of the cloud while the customer handles security *inside* the cloud.
+
 #### IaaS use cases
 - temporary high performance computing - rent the machines when you need them.
 - testing an application during release.
@@ -122,8 +124,6 @@ Gateway can also be placed in front of multiple App Services, not just in front 
 
 **Content Delivery Network:** Handles static content for web applications, such as images and stylesheets. This content can then be distributed across the world, across muliple POP (point of presence) locations, to reduce latency for users living in different continents. Microsoft has over 120 of these locations (as of 2020).
 
-**ExpressRoute** lets you extend your on-premises networks into the Microsoft cloud over a private connection with the help of a connectivity provider. Can be used to connect to both Azure services and Microsoft 365 services.
-
 #### Workload products available in Azure (non-exhaustive list)
 
 **Azure Compute Services** are the hosting services responsible for hosting and running the application workloads. These include Azure Virtual Machines (VMs), Azure Container Service, Azure App Services etc.
@@ -159,11 +159,15 @@ The following pricing tiers are available in App Service:
 
 **Cosmos DB:** a hosted, globally distributed, NoSQL (non-relational) database system. Designed for highly responsive and/or multi-regional applications.
 
+**Azure Virtual Desktop:** a PaaS desktop and app virtualization service. Can also be referred to as Desktop as a Service (DaaS).
+
 An **Azure Virtual Network (VNet)** is an emulation of a physical networking infrastructure that allows Virtual Machines to communicate amongst themselves. You can even use a VNet to communicate between your on-premises resources and your Azure resources. 
 
 VNets can be segmented into subnets. This can be done to group related resources, and to apply security rules and filters across multiple resources within the same subnet. Network filtering will function through Network Security Groups or Application Security Groups - more on those topics will be discussed in the section *Securing Networks*.
 
 Multiple VNets can be linked up with *VNet Peering*, and then act as one. A VNet can only reside within a single region, forcing you to create multiple VNs across regions. VNet peering can still join the VNets together. Another way to accomplish this goal across is with VPN Gateway, depending on your company's needs.
+
+**ExpressRoute** lets you extend your on-premises networks into the Microsoft cloud over a private connection with the help of a connectivity provider. Can be used to connect to both Azure services and Microsoft 365 services.
 
 #### Other notes:
 
