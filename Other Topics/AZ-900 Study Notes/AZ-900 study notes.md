@@ -163,7 +163,7 @@ The following pricing tiers are available in App Service:
 
 **Azure SQL Managed Instance:** offers the same capabilities as on-premises SQL Server but in the cloud. More expensive than Azure Sql Database but offers more features.
 
-**SQL Data Warehouse:** a version of Sql Server for massively parallel processing operations, so for Big Data.
+**Azure Synapse Analytics (formerly Azure SQL Data Warehouse):** a service for massively parallel processing operations, so for Big Data.
 
 **Cosmos DB:** a hosted, globally distributed, NoSQL (non-relational) database system. Designed for highly responsive and/or multi-regional applications.
 
