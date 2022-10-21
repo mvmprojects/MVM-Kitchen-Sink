@@ -571,38 +571,3 @@ At the start of the cycle are previews, made available for evaluation and feedba
 When previews go live they are considered to fall under **General Availability (GA)** and become part of the default product set.
 
 You can monitor feature updates and product changes via the What's New page in Azure Portal, via azure.microsoft.com/updates, or by reading the announcements on the official Azure Blog https://azure.microsoft.com/en-us/blog/topics/announcements/
-
-## Random Sample Exam Questions
-
-Q: Does MS provide a separate portal for Azure portal specific previews? 
-A: Yes.
-
-Q: A company wants to store data that is infrequently used. It needs to be accessed via Power BI. What could be a cost-effective data layer for this requirement?
-Options: Azure SQL db, Azure PostgreSQL, Azure Cosmos DB, Azure Data Lake
-Answer: Option D: Azure Data Lake. The other options should be used for frequently accessed data.
-
-Q: A company needs 50 custom VMs. 20 are windows-based and 30 are ubuntu. Which option would reduce administrative effort?
-Options: Azure Load Balancer, Azure Web Apps, Azure Traffic Manager, Azure Scale Sets.
-Answer: Option D: Azure Scale Sets. The other options are incorrect because Load Balancer is for diverting traffic to back-end VMs at the network layer, Web Apps is for hosting web apps, and Traffic Manager is used for DNS-based traffic routing.
-
-Q: A company wants to enforce Multi-factor authentication for users entering Azure. Which option lets them do this?
-Options: Azure Service Trust Portal, Azure Security Center, Azure DDoS Protection, Azure privileged identity management
-Answer: Options D: Azure privileged identity management. Trust portal is for information on compliance with data protection standards and regulatons. Security Centre is a unified infrastructure security management system in Azure.
-
-Q: A company wants to host 2 VMs in Azure. When the VM is stopped, do you still incur costs for the storage attached to the VM?
-A: Yes. Turning the VM off only helps to avoid storage transaction costs. The disk(s) will also incur monthly costs.
-
-Q: Can you create VMs in Azure if you run a powershell script on a Linux machine, with Azure CLI tools installed?
-A: No (trick question). You also need Powershell Core installed to run powershell scripts on Linux.
-
-Q: A company is planning to host resources in Azure. They want to ensure Azure complies with the rules and regulations in the region. Which option can assist the company in getting the required compliance reports?
-Options: Azure AD, Microsoft Trust Center, Azure Advisor, Azure Security Centre
-Answer: Option B: Microsoft Trust Center. Azure AD is for identity management. Azure Advisor is for recommendations in Azure.
-
-Q: The company has just deployed a VM and needs to know if it is having any issues. Which option will let you view such issues?
-Options: Azure Advisor, Azure AD, A Virtual Machine menu blade, Azure Monitor
-Answer: The VM menu blade called resource health will show the most specific information for the VM. Azure Monitor is for showing the health of your entire Azure infrastructure (although Monitor's Metrics Explorer can show individual resources).
-
-Q: What feature of a system makes it elastic?
-Options: Self-healing after a crash, withstanding DDoS attacks, staying available while updates are being made to the system, increasing and reducing capacity based on actual demand.
-Answer: Option D: Increasing and reducing capacity based on actual demand.
