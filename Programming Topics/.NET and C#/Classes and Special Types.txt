@@ -1,9 +1,3 @@
-Return Default
-
-When you have a generic class that can handle either a value or reference type, you can potentially end a method with "return default". This will return 0 for a numeric type and null for reference types.
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 Reusing Constructors
 
 You can call a constructor from another constructor within the same class, using "this":

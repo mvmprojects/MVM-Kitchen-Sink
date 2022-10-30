@@ -1,3 +1,5 @@
+Non-nullable types
+
 Instead of setting a type as nullable with ?, you can do the opposite and set non-nullable types with !.
 
 	string! nonNullableString;
@@ -55,3 +57,25 @@ public void Push(double item)
 
 // similarly shortened Pop method with an expression body, with the decrement operator placed after the variable:
 public double Pop() => _items[_currentIndex--]
+
+//////////////////////////////////////////////////////
+
+Default Operator
+
+"A default value expression produces the default value of a type. There are two kinds of default value expressions: the default operator call and a default literal."
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/default#default-operator
+
+Example of the default operator call:
+	Console.WriteLine(default(int));  // Output: 0
+	Console.WriteLine(default(object) is null);  // Output: True
+
+	void DisplayDefaultOf<T>()
+	{
+		var val = default(T);
+		Console.WriteLine($"Default value of {typeof(T)} is {(val == null ? "null" : val.ToString())}.");
+	}
+	
+	DisplayDefaultOf<int?>();
+	// Output: Default value of System.Nullable`1[System.Int32] is null.
+	
+The default literal has four different uses. One such use is in a return statement. So when you have a generic class that can handle either a value or reference type, you can potentially end a method with "return default". This will return 0 for a numeric type and null for reference types.
