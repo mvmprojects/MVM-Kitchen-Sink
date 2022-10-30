@@ -35,3 +35,23 @@ display(numbers.Count);   // output: 2
 
 numbers.Clear();
 display(numbers.Count);   // output: 0
+
+////////////////////////////////////////////////////////////////////////////////////
+
+Tidy usage of increment/decrement operators:
+
+// basic stack push method:
+public void Push(double item)
+{
+    _currentIndex++;
+    _items[currentIndex] = item;
+}
+
+// shortened, but with the ++ increment operator placed BEFORE the variable or you will push to the wrong index:
+public void Push(double item)
+{
+    _items[++currentIndex] = item;
+}
+
+// similarly shortened Pop method with an expression body, with the decrement operator placed after the variable:
+public double Pop() => _items[_currentIndex--]

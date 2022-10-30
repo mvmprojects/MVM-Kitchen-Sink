@@ -45,3 +45,13 @@ ctrl + k, p = go to bookmark
 ctrl + k, l = clear bookmarks
 ctrl + K, h = add shortcut to task window
 (to remove a task shortcut, you need to be on top of it and then use Edit -> Bookmarks -> Remove Task List Shortcut)
+
+//////////////////////////////////////////////////////////////////
+
+Using Intermediate Language Disassembler:
+- Go to Tools -> Command Line -> Developer Command Prompt
+- Type in ildasm and hit enter. The IL DASM window will open.
+- Use file explorer, go to your project folder -> bin -> net5.0 (whatever applies) -> the dll file made with the build
+- Drag the dll into the IL DASM window
+- Expand namespaces and classes as needed
+- Doubleclick on a method in a class to open another window showing the Intermediate Language version of your code

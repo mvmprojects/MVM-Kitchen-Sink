@@ -1,3 +1,11 @@
+Return Default
+
+When you have a generic class that can handle either a value or reference type, you can potentially end a method with "return default". This will return 0 for a numeric type and null for reference types.
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Reusing Constructors
+
 You can call a constructor from another constructor within the same class, using "this":
 https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-constructors
 
@@ -15,7 +23,7 @@ public Employee(int weeklySalary, int numberOfWeeks)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TUPLES
+Tuples
 
 A method signature with the tuple return type can have clear names for values, if you use the right syntax.
 

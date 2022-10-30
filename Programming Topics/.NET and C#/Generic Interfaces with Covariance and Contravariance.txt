@@ -1,0 +1,119 @@
+Generic Interfaces with Covariance and Contravariance
+
+you can add a type constraint to a generic interface:
+
+	// IEntity forces entities to have an ID property
+	public interface IRepository<T> where T : IEntity {...}
+
+this will ensure that the repository that uses IRepository<T> can only use classes that implement IEntity. attempting to use anything else will give a compile error, warning you that something is wrong.
+
+however, generic-type parameters of interfaces are, by default, invariant (neither covariant nor contravariant).
+
+	// this line currently gives an error
+	IRepository<IEntity> repo = new ListRepository<SomeEntity>();
+	// you would be forced to do this instead, with the "less specific" type that implements IEntity
+	IRepository<SomeEntity> repo = new ListRepository<SomeEntity>();
+	
+you can change this behavior by specifying the type parameter as covariant, with the out key word...
+
+	// warning: upsets methods
+	public interface IRepository<out T> where T : IEntity {...}
+
+...but this will upset methods in the interface that take type T as input.
+
+to solve this, you could take all the methods that don't need T as input and place them in a separate interface. in the new interface, the out key word can now be used to make the type parameter covariant. the old interface will have to inherit the new interface.
+
+	// new interface with out key word
+	public interface IReadRepository<out T>
+	{
+		IEnumerable<T> GetAll();
+		T GetById(int id);
+	}
+
+	// old interface inherits the new one
+	public interface IRepository<T> : IReadRepository<T> where T : IEntity
+	{
+		void Add(T item);
+		void Remove(T item);
+		void Save();
+	}
+
+now you can do something like this:
+
+	private static void Main(string[] args)
+	{
+		var someRepository = new ListRepository<SomeEntity>();
+		AddSomeEntityContent(someRepository);
+		WriteAllToConsole(someRepository);
+	}
+
+	private static void WriteAllToConsole(IReadRepository<IEntity> repo)
+	{
+		var items = repo.GetAll();
+		foreach (item in items) { console.writeline(item); }
+	}
+	
+and this will work, even with <IEntity> in WriteAllToConsole, because you only need a method from IReadRepository and this interface is marked as covariant.
+
+...
+
+you can run into situations where you want the type to be more specific, rather than less specific.
+
+	// error: cannot convert <...Employee> to <...Manager> (where Manager inherits from Employee and so is more specific)
+	IRepository<Manager> repo = new ListRepository<Employee>();
+	
+you can set the behavior as contravariant with the in key word. 
+
+however, you cannot currently change IRepository<T> to IRepository<in T>, because this interface inherits IReadRepository<out T> and this kind of inheritance is not allowed. it will give an error that states "invalid variance".
+
+the solution is to split off into a new interface (again):
+
+	// interface with out key word and read methods
+	public interface IReadRepository<out T>
+	{
+		IEnumerable<T> GetAll();
+		T GetById(int id);
+	}
+	
+	// new interface receives the methods from IRepository and uses in key word
+	public interface IWriteRepository<in T>
+	{
+		void Add(T item);
+		void Remove(T item);		
+		void Save();		
+	}
+
+	// old interface inherits the new interfaces and no longer has methods of its own
+	public interface IRepository<T> : IReadRepository<T>, IWriteRepository<T>
+		where T : IEntity
+	{
+	}
+
+now you can use methods that need to force the type to be more specific.
+
+	private static void Main(string[] args)
+	{
+		var employeeRepo = new ListRepository<Employee>();
+		AddManagers(employeeRepo);
+	}
+
+	private static void AddManagers(IWriteRepository<Manager> managerRepo)
+	{
+		managerRepo.Add(new Manager(){ ManagerName = "Manager" });
+		managerRepo.Save();
+	}
+	
+To summarize this behavior: 
+- <out T> works if T is only used for return values.
+- <in T> works if T is only used for input values.
+
+If you want, you can create a non-generic interface that inherits from IRepository<T>:
+
+	public interface EmployeeRepository : IRepository<Employee> {...}
+
+Or you can create a new generic interface that adds even more type parameters. you will have to include the type constraint on T:
+	
+	public interface ISubInterfaceRepository<T, TKey> : IRepository<T> where T : IEntity {...}
+
+You can also have a generic interface inherit from a non-generic interface. One example from System.Collections.Generic is: 
+	public interface IEnumerable<out T> : IEnumerable {...}
