@@ -18,3 +18,21 @@ Simplified:
 	// replace excessive whitespace with a single space character
 	// ( combine with .Trim() later )
 	string clean = Regex.Replace(doc, @"\s+", " ");
+
+/*
+MORE:
+
+email address
+^.+@{1}.+\.\w{2,3}$
+
+email address where you disallow a period character (char code 46) directly before the @ character
+^.+[^.]@{1}.+\.\w{2,3}$
+
+decimal
+'^\-?[0-9]+(?:\.[0-9]{1,2})?$';
+
+positive integer
+'^[0-9]+$';
+
+TEST REGEX HERE:
+https://regexr.com/

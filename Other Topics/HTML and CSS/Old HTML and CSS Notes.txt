@@ -1,0 +1,184 @@
+======================================================
+HTML tips:
+
+To comment something out in HTML: 
+<!-- <something></something> -->
+
+Tip: when in Sublime, type "html" and then hit ctrl-space to set up a basic html template.
+(This only seems to actually work when Sublime already knows it's an html file. It doesn't work in an unsaved tab.)
+the shortcut creates:
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+
+	</body>
+	</html>
+
+Could then manually add this within <head></head>: 
+	<meta charset="utf-8">
+
+Difference between block and inline:
+Just assume everything is a block element except <span></span> which is an inline element.
+So you could just call almost everything <div></div> and it would work the same as when you have fancy names like <article>.
+(but you don't use <div> for EVERY block because you probably want CSS rules to only apply to specific blocks, not all of them)
+A weird exception is the <a> tag because it is inline and yet it can act like a block and encapsulate another 
+element: <a href="page.html"><div>large block of text to click on</div></a>
+
+Use an <a> (anchor) tag to create a link, adding the href (hypertext reference) attribute. 
+A title attribute is strongly recommended (used for the visually impaired):
+	<a href="same-directory.html" title="a title">click on me</a>
+
+For an external link, add HTTPS etc
+	<a href="https://www.coursera.org/" title="coursera">click me</a>
+	
+To force it to create a new tab, add target="_blank":
+	<a href="https://www.coursera.org/" title="coursera" target="_blank">click me</a>
+
+You can also use <a> to link to a part of the same page.
+
+<ul>
+	<li><a href="#section1">#section1</a></li>
+	<li><a href="#section2">#section2</a></li>
+</ul>
+
+<section id="section1"><p>text</p><section>
+
+Notice that the id does not contain the # sign.
+Only the link to that section has the # sign at the start.
+
+You can also use the name attribute in the <a> tag, minus the #
+	<a name="section1">click me</a>
+	
+Most obvious use for this section linking:
+	<a href="#top">Back to top</a>
+
+This will move you back up to the section with that id
+	<h1 id="top">Welcome to the top</h1>
+	
+html character entity references:
+&quot; for quotes
+&lt and &gt for < >
+&copy; for copyright symbol
+
+======================================================
+CSS tips:
+
+Tip: with a user agent switcher addon in chrome or firefox
+you can test how wonky your site looks on mobile devices.
+
+As described above in the html tips, an <a> tag is a (mostly) 
+inline element and so it will display as inline rather than 
+as a block. You can override this with the following css rule:
+	a { display: block; }
+
+Wimple css selectors:
+element (just the name, like div {} or section {})
+class (define with . like .section {})
+id (define with # like #main {}) - id is least reusable
+
+Grouping selectors:
+- all p and all h1 elements
+p, h1 {rule}
+
+- all div and all .blue classed elements
+div, .blue {rule}
+<p class="blue">...</p>
+
+Combining selectors:
+"element with class" selector (selector.class)
+child (direct) selector (selector > selector)
+descendant selector (selector selector)
+
+More rare:
+adjacent sibling selector (selector + selector)
+general sibling selector (selector ~ selector)
+
+Pseudo-class selectors:
+:link 
+:visited
+:hover
+:active
+:nth-child(...)
+
+Try this on links:
+
+a:link, a:visited {}
+
+a:hover, a:active {}
+
+Fun stuff:
+In the nth-child selector, you add a number or odd/even
+
+section div:nth-child(odd) {background-color: gray;}
+
+So you can create a big zebra list with white/gray elements 
+
+When you only want to change the hover-over behavior of one 
+element in the list:
+
+section div:nth-child(4):hover {
+	background-color: green;
+	cursor: pointer;
+	}
+	
+You normally put styles in a separate file, rather than in
+the .html file. You then link to styles in the .html file:
+
+<link rel="stylesheet" href="styles.css">
+
+When all your pages share the same .css file they won't
+have to re-download the css all the time, and you'll 
+enforce a consistent style across your website.
+
+Precedence rules:
+Remember that HTML is processed top to bottom.
+For precedence, think of external css as declared
+at the spot where it's linked to.
+
+Simple rule: the last declaration wins.
+Even simpler rule: declarations merge (assuming no conflicts)
+
+Inheritance: when you apply a rule to a parent body, all 
+its children are affected by the rule as well.
+
+Simple rule: the most specific selector combination wins 
+
+The strongest rule that comes first is the one 
+that you added directly to the element in the HTML:
+	<h2 style="color: green;">
+
+Ranked second in specificity is the ID
+Ranked third is class, pseudo-class, attribute 
+Ranked fourth is the number of elements in the selector 
+	div p {color: green;} /* two elements! */
+
+You can also override everything with:
+	p { color: green !important; } /* not recommended! */
+
+Text styling with font families, with "backup" options:
+p { font-family: "Times New Roman", Times, serif; }
+p { font-family: Georgia, serif; font-style: italic }
+default font size is generally set to 16 or so
+
+sans-serif is generally considered more readable on screens:
+p { 
+	font-family: Arial, Helvetica, sans-serif;
+	color: # 90EE90; //green
+	}
+However, Georgia is both serif and optimized for screens.
+It is also decently readable at small sizes.
+"(...) Georgia was designed for clarity on a computer monitor 
+even at small sizes." - wikipedia
+	
+monotype is often used for coding:
+p { font-family: "Courier New", Courier, monospace; }
+p { font-family: "Liberation Mono", monospace; }
+
+The font-sizes will have a cumulative effect rather than 
+overriding each other.
+body { font-size 120%; } 
+<div style="font-size: 2em;"> /* = twice as large */
+<div style="font-size: .5em;"> /* will cancel out 2em */

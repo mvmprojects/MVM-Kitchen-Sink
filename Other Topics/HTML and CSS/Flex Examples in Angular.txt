@@ -1,0 +1,101 @@
+HTML & CSS Flex Examples
+
+// TOP LEVEL
+// in  styles.scss
+
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.default-flex-container {
+    display: flex;
+    justify-content: left;
+    padding: 0.5em;
+}
+
+// PHONE LIST
+// in phone-list.component.scss
+
+ul li {
+    list-style-type: none;
+    padding: 0.5em;
+}
+
+// in phone-list.component.html
+
+<h2>Phone List</h2>
+<ul>
+    <li *ngFor="let phone of phones">
+        <app-phone-info	[phone] = "phone"></app-phone-info>
+    </li>
+</ul>
+
+// in phone-list.component.ts
+
+  phones: Phone[];
+
+  constructor() {
+    this.phones = [
+      {
+        Id: 1,
+( etc. )
+
+// PHONE INFO
+// in phone-info.component.scss
+
+#bordered-info {
+    border-style: solid;
+    border-radius: 5px;
+    border-width: thin;
+    max-width: 20em;
+}
+
+.info-container-primary {
+    display: flex;
+    flex-direction: row;
+}
+
+.info-container-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.info-container-details {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-size: small;
+}
+
+.info-container-details>*:last-child {
+    padding-left: 1em; 
+}
+
+#link-button {
+    align-self: flex-end; 
+    padding: 0.5em;    
+    margin-left: 10em;
+}
+
+// in phone-info.component.html
+
+<div id="bordered-info" class="default-flex-container"><!-- see: styles.scss for default-flex-container -->
+    <div class="info-container-primary">
+        <p style="font-size: xx-large; padding: 1em;">X</p>
+        <div class="info-container-column">
+            <div class="info-container-column">
+                <h3>
+                    {{ phone.Type }} - {{ phone.Brand.Name }}
+                </h3>
+                <div class="info-container-details">
+                    <p *ngIf="phone.Price">
+                        Price: &euro; {{ phone.Price }}
+                    </p>
+                    <p *ngIf="phone.Stock">
+                        {{ phone.Stock }} left in stock!
+                    </p>
+                </div>
+            </div>
+        <button id="link-button">Show more</button>
+        </div>
+    </div>     
+</div>

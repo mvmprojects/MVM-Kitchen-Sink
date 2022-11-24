@@ -1,5 +1,8 @@
 Generic Interfaces with Covariance and Contravariance
 
+"In C#, covariance and contravariance enable implicit reference conversion for array types, delegate types, and generic type arguments. Covariance preserves assignment compatibility and contravariance reverses it."
+https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/
+
 you can add a type constraint to a generic interface:
 
 	// IEntity forces entities to have an ID property
@@ -106,6 +109,8 @@ now you can use methods that need to force the type to be more specific.
 To summarize this behavior: 
 - <out T> works if T is only used for return values.
 - <in T> works if T is only used for input values.
+
+Further Notes on Generic Interfaces
 
 If you want, you can create a non-generic interface that inherits from IRepository<T>:
 
