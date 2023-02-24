@@ -1,0 +1,37 @@
+// this file starts backend (java spring boot) and frontend (angular) as well as sonarcloud
+
+dist: xenial
+
+language: java
+jdk: openjdk11
+
+install: true
+
+services:
+  - xvfb
+
+addons:
+  chrome: stable
+  sonarcloud:
+    organization: "javamtourofheroes"
+    token:
+      secure: $SONAR_TOKEN # Set in the settings page of your repository, as a secure variable
+      
+script:
+  - cd Backend
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install org.jacoco:jacoco-maven-plugin:report sonar:sonar
+  - mvn spring-boot:run &
+  - cd ..
+  - cd Frontend
+  - npm install
+  - nvm install 10.9.0
+  - npm install -g @angular/cli
+  - echo -e "export PATH=$(npm prefix -g)/bin:$PATH" >> ~/.bashrc && source ~/.bashrc
+  - npm run ci
+  - sonar-scanner
+
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.sonar/cache
+    - ./node_modules

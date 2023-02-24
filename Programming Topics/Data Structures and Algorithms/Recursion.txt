@@ -1,0 +1,86 @@
+// example of using two recursion calls ( 2x IsMatch(s, p) ) in a single line of code, creating a tree structure of calls.
+// explanation: this is a small regex algorithm that can handle "zero or more" repetition (marked with a *).
+// not included: potential optimization by means of memoization, such as with a dictionary that remembers previous successes.
+
+    public static class MyRegex
+    {
+        public static bool IsMatch(string s, string p)
+        {
+            if (p.Length > 1 && p[1].Equals('*'))
+            {
+                if (s.Length > 0 && (p[0].Equals('.') || p[0].Equals(s[0])))
+                {
+                    return (
+                        IsMatch(s, p.Substring(2)) || IsMatch(s.Substring(1), p));
+                }
+                else return IsMatch(s, p.Substring(2));
+            }
+
+            if (p.Length == 0 && s.Length == 0) return true;
+            if (s.Length == 0 && p.Length > 0) return false;
+            if (s.Length > 0 && p.Length == 0) return false;
+
+            if (!p[0].Equals('.') &&
+                !p[0].Equals(s[0]))
+            {
+                return false;
+            }
+
+            return IsMatch(s.Substring(1), p.Substring(1));
+        }
+    }
+
+Assignment overview:
+
+Given an input string s and a pattern p, 
+implement regular expression matching with support for '.' and '*' where:
+
+'.' Matches any single character.​​​​
+'*' Matches zero or more of the preceding element.
+The matching should cover the entire input string (not partial).
+
+Example 1:
+Input: s = "aa", p = "a"
+Output: false
+Explanation: "a" does not match the entire string "aa".
+
+Example 2:
+Input: s = "aa", p = "a*"
+Output: true
+Explanation: '*' means zero or more of the preceding element, 'a'. 
+Therefore, by repeating 'a' once, it becomes "aa".
+
+Example 3:
+Input: s = "ab", p = ".*"
+Output: true
+Explanation: ".*" means "zero or more (*) of any character (.)".
+
+Constraints:
+1 <= s.length <= 20
+1 <= p.length <= 30
+s contains only lowercase English letters.
+p contains only lowercase English letters, '.', and '*'.
+It is guaranteed for each appearance of the character '*', there will be a previous valid character to match.
+
+Example tests:
+        [Theory]
+        [InlineData("aa", "a*", true)]
+        [InlineData("ab", ".*", true)]
+        [InlineData("aab", "c*a*b", true)]
+        [InlineData("mississippi", "mis*is*ip*.", true)]
+        [InlineData("ab", ".*..", true)]
+        [InlineData("ab", ".*..c*", true)]
+        [InlineData("a", ".*.", true)]
+        [InlineData("aasdfasdfasdfasdfas", "aasdf.*asdf.*asdf.*asdf.*s", true)]
+        [InlineData("abbbcd", "ab*bbbcd", true)]
+        [InlineData("abcdede", "ab.*de", true)]
+        [InlineData("aaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*a*a*b", true)]
+        [InlineData("b", "c", false)]
+        [InlineData("aa", ".c*c", false)]
+        [InlineData("bbba", "a*", false)]
+        public void StringMatchesPattern(string s, string p, bool expected)
+        {
+            var match = MyRegex.IsMatch(s, p);
+
+            Assert.Equal(expected, match);
+        }

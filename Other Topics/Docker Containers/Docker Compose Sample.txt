@@ -1,0 +1,119 @@
+// docker compose example that starts:
+// - asp.net web api 
+// - sql server from specific image
+// - an angular app in a solution subfolder
+
+// add a docker compose yaml file by choosing Add -> Container Orchestration Support on the api project in VS 2022
+
+// the sql server container will be named sql_server, and will need a password and an environment var for accepting the EULA. the password needs to be strong enough to meet sql server's standards or it will be rejected and the setup will fail.
+
+// a new connection string in your api's appsettings.json can point to "sql_server" and can also be used to enter the password, as well as default user id "sa".
+"DatabaseConnection": "Data Source=sql_server;User ID=sa;Password=Password123!;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+
+// docker-compose.yaml
+
+version: '3.4'
+
+services:
+  sql_server:
+    image: "mcr.microsoft.com/mssql/server:2019-CU14-ubuntu-20.04"
+    ports: 
+        - "1433:1433"
+    environment:
+        MSSQL_SA_PASSWORD: "Password123!"
+        ACCEPT_EULA: "Y"
+
+  phoneshop.api:
+    image: ${DOCKER_REGISTRY-}phoneshopapi
+    build:
+      context: .
+      dockerfile: Phoneshop.Api/Dockerfile
+    ports: 
+#        - "8080:80"
+#        - "8443:443"
+        - "5000:80"
+        - "5001:443"
+    depends_on:
+      - sql_server
+
+  angular_service:
+    build:
+      context: Frontend/PhoneshopUI
+      dockerfile: Dockerfile
+    ports: 
+    - '4200:4200'
+    depends_on:
+      - phoneshop.api
+
+// docker-compose.override.yaml
+// lines on ports have been commented out here, because they literally override the docker-compose.
+// a volume has been added to map the folder PhoneshopUI to /app (see also: the dockerfile for angular).
+// this mapping will allow hot reload functionality.
+
+	version: '3.4'
+
+	services:
+	  phoneshop.api:
+		environment:
+		  - ASPNETCORE_ENVIRONMENT=Development
+		  - ASPNETCORE_URLS=https://+:443;http://+:80
+	#    ports:
+	#      - "80"
+	#      - "443"
+		volumes:
+		  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+	  angular_service:
+		volumes:
+		   - ./FrontEnd/PhoneshopUI:/app:ro
+		   
+// dockerfile for angular
+
+	FROM node:lts-alpine AS build
+	# copy angular code from local to docker machine
+	# copy package.json to install dependencies
+	WORKDIR /app
+	COPY package*.json ./
+
+	# install angular cli and npm dependencies
+	# build angular app
+	RUN npm install -g @angular/cli@14.2.9 && \
+		npm install
+	COPY . .
+	EXPOSE 4200
+
+	CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--poll", "2000"]
+
+// where --poll 2000 is added to allow "hot reload" angular development in a running container
+
+// dockerfile for the asp.net api left at generated defaults
+
+	FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+	WORKDIR /app
+	EXPOSE 80
+	EXPOSE 443
+
+	(...)
+	
+// migration command in api's Program.cs can be used to create the database
+
+	(...)
+
+	var app = builder.Build();
+
+	// use automatic migration for docker compose purposes
+	// will create the database if it does not already exist
+	using (var scope = app.Services.CreateScope())
+	{
+		try
+		{
+			var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+			db.Database.Migrate();
+		}
+		catch (System.Exception ex)
+		{
+			System.Console.WriteLine($"Error attempting to run Migrate: {ex}");
+			throw;
+		}
+	}
+	
+// where the class DataContext inherits from DbContext and can use EF method HasData() for seeding.

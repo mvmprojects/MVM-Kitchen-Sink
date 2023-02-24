@@ -1,5 +1,5 @@
-You can use string.IsNullOrEmpty(<some string property>) for validation purposes.
-In addition, you can use the ? : ternary operator in the middle of a .WriteLine() string, to add more info.
+// You can use string.IsNullOrEmpty(<some string property>) for validation purposes.
+// In addition, you can use the ? : ternary operator in the middle of a .WriteLine() string, to add more info.
 
         public Phone CreatePhone(Phone phone)
         {
@@ -18,7 +18,12 @@ In addition, you can use the ? : ternary operator in the middle of a .WriteLine(
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-The old-fashioned method of using string interpolation might still appear on loggers.
+// The old-fashioned method of using string interpolation might still appear on loggers.
 
             string tst = "test";
             _logger.LogInformation("Using old interpolation {tst}", tst);
+
+// add a variable line of dashes underneath user input:
+	var input = console.ReadLine() ?? string.Empty;
+	Console.WriteLine(input);
+	Console.WriteLine(new string('-', input.Length));
