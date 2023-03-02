@@ -3,8 +3,11 @@
 ## Javascript
 
 If you want to initialize with a certain value, these are good to know:
+
 	Array.from('abcde'), Array.from('x'.repeat(5))
+	
 or 
+
 	Array.from({length: 5}, (v, i) => i)   // gives [0, 1, 2, 3, 4]
 
 ## Typescript
