@@ -1,0 +1,71 @@
+## Basic form with field validators (no angular materials and no custom validators)
+
+### Typescript
+
+	import { Component, OnInit } from '@angular/core';
+	import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+	@Component({
+	  selector: 'app-contact',
+	  templateUrl: './contact.component.html',
+	  styleUrls: ['./contact.component.scss']
+	})
+	export class ContactComponent implements OnInit {
+
+	  formMain!: FormGroup;
+
+	  labelName = 'Name';
+	  labelEmail = 'Email';
+	  labelMessage = 'Message'; 
+	  requirementWarning = 'This field is required.';
+	  emailWarning = 'Please enter a valid email address.';
+
+	  constructor(private formBuilder: FormBuilder){ 
+		this.formMain = this.formBuilder.group({
+		  contactName: new FormControl('', [Validators.required]),
+		  contactEmail: new FormControl('', [Validators.required, Validators.email]),  
+		  contactMessage: new FormControl('', [Validators.required])
+		});
+	  }
+
+	  ngOnInit(): void {
+	  }
+
+	  onSubmit(): void {
+		console.log(this.formMain.value);
+	  }
+
+	}
+
+### HTML
+
+	<h2>Contact Form</h2>
+	<form [formGroup]="formMain" (ngSubmit)="onSubmit()">
+		<p class="label-small">{{labelName}}</p>
+		<div>
+			<input type="text" formControlName="contactName" [placeholder]="labelName"/>
+		</div>
+		<div class="txt-error" *ngIf="formMain.controls['contactName'].invalid  && (formMain.controls['contactName'].dirty || formMain.controls['contactName'].touched)">
+			<div class="label-small" *ngIf="formMain.controls['contactName'].errors!['required']">{{requirementWarning}}</div>
+		</div>    
+		<p class="label-small">{{labelEmail}}</p>
+		<div>
+			<input type="text" formControlName="contactEmail" [placeholder]="labelEmail"/>
+		</div>
+		<div class="txt-error" *ngIf="formMain.controls['contactEmail'].invalid  && (formMain.controls['contactEmail'].dirty || formMain.controls['contactEmail'].touched)">
+			<div class="label-small" *ngIf="formMain.controls['contactEmail'].errors!['required']">{{requirementWarning}}</div>
+		</div>        
+		<div class="txt-error" *ngIf="formMain.controls['contactEmail'].invalid  && (formMain.controls['contactEmail'].dirty || formMain.controls['contactEmail'].touched)">
+			<div class="label-small" *ngIf="formMain.controls['contactEmail'].errors!['email']">{{emailWarning}}</div>
+		</div>            
+		<p class="label-small">{{labelMessage}}</p>
+		<div>
+			<input type="text" formControlName="contactMessage" [placeholder]="labelMessage"/>
+		</div>        
+		<div class="txt-error" *ngIf="formMain.controls['contactMessage'].invalid  && (formMain.controls['contactMessage'].dirty || formMain.controls['contactMessage'].touched)">
+			<div class="label-small" *ngIf="formMain.controls['contactMessage'].errors!['required']">{{requirementWarning}}</div>
+		</div>        
+		<div>
+			<button type="submit" [disabled]="formMain.invalid" class="submit-button">Submit</button>
+		</div>
+	</form>

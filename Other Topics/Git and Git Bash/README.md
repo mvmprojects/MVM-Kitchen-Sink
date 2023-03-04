@@ -87,9 +87,9 @@ Another option is to "forget" a file, according to stack overflow:
 
 	git update-index --skip-worktree <file>
 
-------
+## Opinionated
 
-Idea for using rebase as a merging strategy:
+What follows is a plan for using *rebase as a merging strategy*:
 
 - Create a new branch for a feature.
 - Make changes and commit them.

@@ -1,6 +1,8 @@
 # AZ-900
 
-Notes on Azure, based on various sources available in 2022.
+Notes on Azure, based on sources available in 2022.
+
+Disclaimer: these notes were gathered from various completely different sources, rather than from a single infallible authority. You might find, however, that it is important to look at the topics from many different angles anyway. An exam question can phrase a question very differently from what you expected.
 
 General note: The Azure portal can be viewed on any browser and hence can be viewed on almost any operating system. The Azure CLI is available on all platforms.
 
