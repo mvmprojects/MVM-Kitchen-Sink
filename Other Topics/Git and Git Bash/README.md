@@ -92,13 +92,13 @@ Another option is to "forget" a file, according to stack overflow:
 
 ## Opinionated
 
-What follows is a plan for using *rebase as a merging strategy*:
+What follows is a plan for *using rebase as a merging strategy*:
 
 - Create a new branch for a feature.
 - Make changes and commit them.
 - Check out the develop (main) branch and fetch/pull from upstream.
 - Check back into the feature branch
-- Rebase the current branch on top of develop, so that commits are *re-played on top of develop*.
+- Rebase the current branch on top of develop, so that commits are re-played on top of develop.
 - Create a PR to merge into develop.
 - Do the merge.
 The branch eventually gets deleted, but all the changes are now in develop and we're ready for the next one.
