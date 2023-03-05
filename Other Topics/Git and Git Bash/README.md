@@ -9,7 +9,7 @@ https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/c
 2. Install the latest version of Git for Windows (2.35 at time of writing) or look up the right command needed to update an older version of Git. Minimum version required here is 2.29.
 3. Go to your project/solution folder, and right-click to open Git Bash in that directory ))
 
-		echo "# phoneshop" \>\> README.md
+		echo "# Demo Project" >> README.md
 		
 		git init 
 		git add -A
@@ -84,11 +84,11 @@ From then on, you can leave it added to your .gitignore file.
 
 To remove an entire folder, do it recursively:
 
-	git rm -r --cached <folder>
+	git rm -r --cached YourFolder
 
 Another option is to "forget" a file, according to stack overflow:
 
-	git update-index --skip-worktree <file>
+	git update-index --skip-worktree YourFile.txt
 
 ## Opinionated
 
@@ -98,7 +98,7 @@ What follows is a plan for using *rebase as a merging strategy*:
 - Make changes and commit them.
 - Check out the develop (main) branch and fetch/pull from upstream.
 - Check back into the feature branch
-- Rebase the current branch on top of develop, so my commits are re-played on top of develop.
+- Rebase the current branch on top of develop, so that commits are *re-played on top of develop*.
 - Create a PR to merge into develop.
 - Do the merge.
 The branch eventually gets deleted, but all the changes are now in develop and we're ready for the next one.
