@@ -3,21 +3,22 @@
 ## Basic:
 
 Pushing your fresh solution to an empty repository on github (so create a completely empty repo with NO initialize and NO readme) using only Git for Windows:
+
 1. Read up on personal access tokens on github, and generate a token. 
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 2. Install the latest version of Git for Windows (2.35 at time of writing) or look up the right command needed to update an older version of Git. Minimum version required here is 2.29.
 3. Go to your project/solution folder, and right-click to open Git Bash in that directory ))
 
-	echo "# phoneshop" >> README.md
+		echo "# phoneshop" \>\> README.md
+		
+		git init 
+		git add -A
+		git commit -m "first commit"
+		git branch -M master
+		
+		git remote add origin https://your-git-server/your-repo.git
 	
-	git init 
-	git add -A
-	git commit -m "first commit"
-	git branch -M master
-	
-	git remote add origin https://<your git server>/<your repo>.git
-	
-Where <your git server> and <your repo> should be the server and the repo name. For example: https://github.com/mvmprojects/MVM-Kitchen-Sink.git for the kitchen sink server and repo.
+Where `your-git-server` and `your-repo` should be the server and the repo name. For example: https://github.com/mvmprojects/MVM-Kitchen-Sink.git for the kitchen sink server and repo.
 
 	git push -u origin master
 	
@@ -27,12 +28,12 @@ Dealing with the error that states: "Your push would publish a private email add
 1. Look up your public (noreply) email address on github.
 2. Enter commands in Git Bash to deal with the address:
 
-	git config --global user.email "<number>+<name>@users.noreply.github.com"
-	git commit --amend --reset-author
+		git config --global user.email "<number>+<name>@users.noreply.github.com"
+		git commit --amend --reset-author
 	
 3. Try to push to the repo again:
 
-	git push -u origin master
+		git push -u origin master
 
 The usual pattern whenever you've made your local changes:
 
