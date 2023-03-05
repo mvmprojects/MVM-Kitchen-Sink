@@ -8,9 +8,9 @@ This is not actually a demo, but a collection of notes and code samples. A more 
 
 Samples, special types and operators
 
-### Angular and node
+### Angular
 
-Angular commands, NVM
+Angular samples
 
 ### Data Structures and Algorithms
 
@@ -23,6 +23,10 @@ SQL samples, Data Normalization
 ### Entity Framework
 
 EF samples, EF commands and conventions
+
+### Javascript and Typescript
+
+Notes and samples
 
 ### Testing and Mapping
 
