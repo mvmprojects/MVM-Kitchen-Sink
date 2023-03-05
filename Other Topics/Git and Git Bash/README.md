@@ -9,10 +9,12 @@ https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/c
 3. Go to your project/solution folder, and right-click to open Git Bash in that directory ))
 
 	echo "# phoneshop" >> README.md
+	
 	git init 
 	git add -A
 	git commit -m "first commit"
 	git branch -M master
+	
 	git remote add origin https://<your git server>/<your repo>.git
 	
 Where <your git server> and <your repo> should be the server and the repo name. For example: https://github.com/mvmprojects/MVM-Kitchen-Sink.git for the kitchen sink server and repo.
