@@ -1,6 +1,8 @@
 # Javascript and Typescript
 
-## Javascript
+## Javascript Notes
+
+### Basic
 
 If you want to initialize with a certain value, these are good to know:
 
@@ -8,7 +10,47 @@ If you want to initialize with a certain value, these are good to know:
 	Array.from('x'.repeat(5))
 	Array.from({length: 5}, (v, i) => i)   // gives [0, 1, 2, 3, 4]
 
-## Typescript
+## Typescript Notes
+
+### Basic
+
+#### Optional Properties
+
+https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#optional-properties
+
+Marked with `?` after parameter name.
+
+	function printName(obj: { first: string; last?: string }) {
+	  // ...
+	}
+	// Both OK
+	printName({ first: "Bob" });
+	printName({ first: "Alice", last: "Alisson" }); 
+
+
+In JavaScript, if you access a property that doesn’t exist, you’ll get the value undefined rather than a runtime error. Now, when you read from an optional property in TypeScript, you’ll have to check for undefined before using it.
+
+The following gives you the error: "Object is possibly 'undefined'"
+
+	function printName(obj: { first: string; last?: string }) {
+		// Error - might crash if 'obj.last' wasn't provided!
+		console.log(obj.last.toUpperCase());
+
+Solved by providing a check.
+
+	if (obj.last !== undefined) {
+		// OK
+		console.log(obj.last.toUpperCase());
+	}
+
+A safe alternative using modern JavaScript syntax:
+
+	console.log(obj.last?.toUpperCase());
+
+### Advanced
+
+#### Destructuring Generic Type Argument
+
 
 A way of *destructuring a generic type argument* (even though TS supports tuples directly:
 

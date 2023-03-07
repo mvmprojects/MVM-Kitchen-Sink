@@ -104,7 +104,7 @@ What follows is a form for adding an object, using Angular Materials and custom 
 
 Not included: a fully implemented submit button.
 
-NOTE: the angular materials in this example require MatInputModule to be imported either in app.module or in your own custom module used for grouping materials.
+NOTE: the angular materials in this example require MatInputModule to be imported either in app.module or in your own custom module used for grouping materials together.
 
 	import { MatInputModule } from '@angular/material/input';
 	
