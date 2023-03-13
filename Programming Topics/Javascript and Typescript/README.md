@@ -31,7 +31,6 @@ Marked with `?` after parameter name.
 	printName({ first: "Bob" });
 	printName({ first: "Alice", last: "Alisson" }); 
 
-
 In JavaScript, if you access a property that doesn’t exist, you’ll get the value undefined rather than a runtime error. Now, when you read from an optional property in TypeScript, you’ll have to check for undefined before using it.
 
 The following gives you the error: "Object is possibly 'undefined'"
@@ -54,7 +53,6 @@ A safe alternative using modern JavaScript syntax:
 ### Advanced
 
 #### Destructuring Generic Type Argument
-
 
 A way of *destructuring a generic type argument* (even though TS supports tuples directly:
 
