@@ -102,3 +102,15 @@ What follows is a plan for *using rebase as a merging strategy*:
 - Create a PR to merge into develop.
 - Do the merge.
 The branch eventually gets deleted, but all the changes are now in develop and we're ready for the next one.
+
+The official git documentation already compares merge to rebase.
+https://git-scm.com/book/en/v2/Git-Branching-Rebasing
+
+	$ git checkout experiment
+	$ git rebase master
+	First, rewinding head to replay your work on top of it...
+	Applying: added staged command
+
+The linked page above includes a detailed warning against rebasing commits that have already been pushed:
+
+"If you rebase commits that have already been pushed publicly, and people may have based work on those commits, then you may be in for some frustrating trouble, and the scorn of your teammates. (...) Now, to the question of whether merging or rebasing is better: hopefully you’ll see that it’s not that simple. (...) You can get the best of both worlds: rebase local changes before pushing to clean up your work, but never rebase anything that you’ve pushed somewhere."
