@@ -9,6 +9,10 @@ If you want to initialize with a certain value, these are good to know:
 	Array.from('abcde')
 	Array.from('x'.repeat(5))
 	Array.from({length: 5}, (v, i) => i)   // gives [0, 1, 2, 3, 4]
+	
+To sum up the values in an array, you don't need a for loop. The reduce method takes up a single line:
+
+    return numbersArray.reduce((previousValue, currentValue) => previousValue + currentValue, 0)
 
 ## Typescript Notes
 
