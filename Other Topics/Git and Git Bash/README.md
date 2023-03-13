@@ -111,6 +111,6 @@ https://git-scm.com/book/en/v2/Git-Branching-Rebasing
 	First, rewinding head to replay your work on top of it...
 	Applying: added staged command
 
-The linked page above includes a detailed warning against rebasing commits that have already been pushed:
+The documentation page linked to above includes a **very thorough warning** against rebasing commits that have already been pushed:
 
 "If you rebase commits that have already been pushed publicly, and people may have based work on those commits, then you may be in for some frustrating trouble, and the scorn of your teammates. (...) Now, to the question of whether merging or rebasing is better: hopefully you’ll see that it’s not that simple. (...) You can get the best of both worlds: rebase local changes before pushing to clean up your work, but never rebase anything that you’ve pushed somewhere."
