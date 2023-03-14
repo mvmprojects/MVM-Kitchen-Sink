@@ -2,6 +2,8 @@
 
 This is not actually a demo, but a collection of notes and code samples. A more formal name would have been "MVM Miscellaneous".
 
+Topics can be reorganized in the future. Not all topics have notes at present, providing more of a wish list.
+
 ## Programming Topics
 
 ### .NET and C#
