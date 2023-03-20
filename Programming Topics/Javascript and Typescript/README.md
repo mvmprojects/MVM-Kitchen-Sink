@@ -30,7 +30,7 @@ To concatenate strings with a separator (such as a space) you don't need a for l
 	
 Although you can use Array.filter() to get only the items you want, you might want to do a comparison between two arrays and only pick up the items that appear in both. There is no Array.intersect() method in javascript (at the time of writing) unless you add a library.
 
-To create your own intersect method, you can traverse the shorter array and then keep checking if the item at the current index is present in the longer array. 
+To create your own intersect method, you can traverse the longer array and then keep checking if the item at the current index is present in the shorter array. 
 
 	function intersect(a, b) {
 		var temp;
