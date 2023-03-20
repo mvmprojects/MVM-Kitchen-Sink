@@ -13,6 +13,14 @@ If you want to initialize with a certain value, these are good to know:
 To sum up the values in an array, you don't need a for loop. The reduce method takes up a single line:
 
     return numbersArray.reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+	
+To concatenate strings with a separator (such as a space) you don't need a for loop either. You can use Array.join().
+
+	const sentence = wordsArray => wordsArray.join(' ');
+	
+Ways to shorten code include the ternary expression and the arrow function expression (comparable to an expression body in C#). A combination of both is shown here:
+
+	const even_or_odd = number => number % 2 === 0 ? 'Even' : 'Odd';
 
 ## Typescript Notes
 
