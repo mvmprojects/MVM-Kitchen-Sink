@@ -4,6 +4,14 @@
 
 ### Basic
 
+#### Organizing Code
+
+Ways to shorten code include the ternary expression and the arrow function expression (comparable to an expression body in C#). A combination of both is shown here:
+
+	const even_or_odd = number => number % 2 === 0 ? 'Even' : 'Odd';
+
+#### Arrays
+
 If you want to initialize with a certain value, these are good to know:
 
 	Array.from('abcde')
@@ -18,9 +26,35 @@ To concatenate strings with a separator (such as a space) you don't need a for l
 
 	const sentence = wordsArray => wordsArray.join(' ');
 	
-Ways to shorten code include the ternary expression and the arrow function expression (comparable to an expression body in C#). A combination of both is shown here:
+### Advanced
+	
+Although you can use Array.filter() to get only the items you want, you might want to do a comparison between two arrays and only pick up the items that appear in both. There is no Array.intersect() method in javascript (at the time of writing) unless you add a library.
 
-	const even_or_odd = number => number % 2 === 0 ? 'Even' : 'Odd';
+To create your own intersect method, you can traverse the shorter array and then keep checking if the item at the current index is present in the longer array. 
+
+	function intersect(a, b) {
+		var temp;
+		if (b.length > a.length) temp = b, b = a, a = temp;
+		return a.filter(function (e) {
+			return b.indexOf(e) > -1;
+		});
+	}
+
+Please keep in mind the problem of quadratic growth of operations (n \* n) when the arrays are very long.
+
+Note that the above method will not skip duplicates. To remove duplicates, an extra step is needed.
+
+	function intersect(a, b) {
+		var temp;
+		if (b.length > a.length) temp = b, b = a, a = temp;
+		return a
+			.filter(function (element) {
+				return b.indexOf(element) > -1;
+			})
+			.filter(function (element, index, calledArray) { // extra step to remove duplicates
+				return calledArray.indexOf(element) === index;
+			});
+	}
 
 ## Typescript Notes
 
