@@ -52,7 +52,7 @@ Where the property `length` will be corrected or "normalized" even when a value 
 
 #### Array.prototype.filter()
 
-Although you can use Array.filter() to get only the items you want, you might want to do a comparison between two arrays and only pick up the items that appear in both. There is no Array.intersect() method in javascript (at the time of writing) unless you add a library.
+Although you can use .filter() to get only the items you want from an array, you might want to do a comparison between two arrays and only pick up the items that appear in both. There is no Array.intersect() method in javascript (at the time of writing) unless you add a library.
 
 To create your own intersect method, you can traverse the longer array and then keep checking if the item at the current index is present in the shorter array. 
 
