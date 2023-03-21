@@ -29,7 +29,7 @@ If you want to initialize with a certain value, these are good to know:
 
 #### Array.from()
 
-Another way to use Array.from() is with an optional map function as the second parameter.
+Another way to use the static method Array.from() is with an optional map function as the second parameter.
 
 	Array.from({length: 5}, (v, i) => i)   // gives [0, 1, 2, 3, 4]
 	
@@ -50,7 +50,7 @@ To create a range of numbers with a specific start, stop and step, you can use t
 	
 Where the property `length` will be corrected or "normalized" even when a value like 5.5 is provided, setting it to 5 when the object is converted to an array.
 
-#### Array.filter()
+#### Array.prototype.filter()
 
 Although you can use Array.filter() to get only the items you want, you might want to do a comparison between two arrays and only pick up the items that appear in both. There is no Array.intersect() method in javascript (at the time of writing) unless you add a library.
 
