@@ -18,6 +18,8 @@ If you want to initialize with a certain value, these are good to know:
 	Array.from('x'.repeat(5))
 	Array.from({length: 5}, (v, i) => i)   // gives [0, 1, 2, 3, 4]
 	
+Where `{ length: 5}` is an object that will be converted to an array with a length of 5, but each position will be undefined and so `v` will also be undefined. The current index will used as the value to place onto the position, hence the values of 0, 1, 2, 3 etc.
+
 To sum up the values in an array, you don't need a for loop. The reduce method takes up a single line:
 
     return numbersArray.reduce((previousValue, currentValue) => previousValue + currentValue, 0)
@@ -29,7 +31,7 @@ To concatenate strings with a separator (such as a space) you don't need a for l
 To create a range of numbers, of a length n with a starting value of x, you can do the following:
 
 	const countBy = (x, n) => Array.from({length: n}, (v, k) => (k + 1) * x)
-	console.log(countBy(1,10));
+	console.log(countBy(1,10)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	
 ### Advanced
 	
