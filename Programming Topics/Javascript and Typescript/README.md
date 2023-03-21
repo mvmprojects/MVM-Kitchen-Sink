@@ -24,17 +24,33 @@ If you want to initialize with a certain value, these are good to know:
 
 	Array.from('abcde')
 	Array.from('x'.repeat(5))
-	Array.from({length: 5}, (v, i) => i)   // gives [0, 1, 2, 3, 4]
-	
-Where `{ length: 5}` is an object that will be converted to an array with a length of 5, but each position will be undefined and so `v` will also be undefined. The current index will be used as the value to place onto the position, hence the values of 0, 1, 2, 3 and 4.	
-
-To create a range of numbers, of a length n with a starting value of x, you can do the following:
-
-	const countBy = (x, n) => Array.from({length: n}, (v, k) => (k + 1) * x)
-	console.log(countBy(1,10)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	
 ### Advanced
+
+#### from method
+
+Another way to use Array.from() is with an optional map function as the second parameter.
+
+	Array.from({length: 5}, (v, i) => i)   // gives [0, 1, 2, 3, 4]
 	
+Where `{ length: 5}` is an object that will be converted to an array with a length of 5, but each position will be undefined and so `v` will also be undefined. The current index will be used as the value to place onto the position, hence the values of 0, 1, 2, 3 and 4.
+
+To create a range of numbers, of a length n with a starting value *and* step of x, you can do the following:
+
+	const countBy = (x, n) => Array.from({length: n}, (v, i) => (i + 1) * x)
+	console.log(countBy(1,10)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	console.log(countBy(2,10)); // [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+
+To create a range of numbers with a specific start, stop and step, you can use this:
+	const range = (start, stop, step) =>
+	  Array.from({ length: (stop - start) / step + 1 }, (v, i) => start + i * step);
+	console.log(range(0,10,1)); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	console.log(range(1,10,2)); // [1, 3, 5, 7, 9]
+	
+Where the property `length` will be corrected or "normalized" even when a value like 5.5 is provided, setting it to 5 when the object is converted to an array.
+
+#### filter method
+
 Although you can use Array.filter() to get only the items you want, you might want to do a comparison between two arrays and only pick up the items that appear in both. There is no Array.intersect() method in javascript (at the time of writing) unless you add a library.
 
 To create your own intersect method, you can traverse the longer array and then keep checking if the item at the current index is present in the shorter array. 
