@@ -20,6 +20,13 @@ To concatenate strings with a separator (such as a space) you don't need a for l
 
 	const sentence = wordsArray => wordsArray.join(' ');
 	
+In a for loop used to fill an empty array, you don't have to specify the index within the loop because you can just use the push method to keep adding items:
+
+    var arr = [];
+    for (i = 1; i <= 10; i++) {
+        arr.push(i);
+    }
+	
 If you want to initialize with a certain value, these are good to know:
 
 	Array.from('abcde')
