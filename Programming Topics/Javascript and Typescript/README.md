@@ -26,6 +26,11 @@ To concatenate strings with a separator (such as a space) you don't need a for l
 
 	const sentence = wordsArray => wordsArray.join(' ');
 	
+To create a range of numbers, of a length n with a starting value of x, you can do the following:
+
+	const countBy = (x, n) => Array.from({length: n}, (v, k) => (k + 1) * x)
+	console.log(countBy(1,10));
+	
 ### Advanced
 	
 Although you can use Array.filter() to get only the items you want, you might want to do a comparison between two arrays and only pick up the items that appear in both. There is no Array.intersect() method in javascript (at the time of writing) unless you add a library.
