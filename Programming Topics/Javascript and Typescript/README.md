@@ -87,6 +87,21 @@ Note that the above method will not skip duplicates. To remove duplicates, an ex
 			});
 	}
 
+#### Overengineered Rock Paper Scissors
+
+The following code implements a game of Rock Paper Scissors using a mathematical trick with modulo. This trick is so powerful that it can be used to implement Rock Paper Scissors Lizard Spock, which is where I stole the idea from to show off on codewars.
+
+	const rps = (p1, p2) => {
+		if (p1 == p2) return 'Draw!'
+		var dict = {'rock': 0,'paper': 1,'scissors': 2};
+		p1 = dict[p1]; p2 = dict[p2];  
+	// modulo trick borrowed from article "Rock, Paper, Scissors, Lizard, Spock or why Math is Awesome for Coding." by Juan F. 
+		const compare = p1 - p2 + 3;
+		if ((compare % 3 + 1) % 2 == 0) return 'Player 1 won!';
+		if ((compare % 3 ) % 2 == 0) return 'Player 2 won!';  
+	};
+	console.log(rps('scissors','paper')); // "Player 1 won!"
+
 ## Typescript Notes
 
 ### Basic
