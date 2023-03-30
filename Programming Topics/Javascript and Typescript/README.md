@@ -10,17 +10,41 @@ Ways to shorten code include the ternary expression and the arrow function expre
 
 	const even_or_odd = number => number % 2 === 0 ? 'Even' : 'Odd';
 
-#### Arrays
+Arrow functions are popular for, among other reasons, solving a problem where you potentially mismanage the use of the `this` value. Arrow functions bind `this` to the context in which you create the arrow function.
 
-To sum up the values in an array, you don't need a for loop. The reduce method takes up a single line:
+This line with an arrow function:
 
-    return numbersArray.reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+	const foo = (args) => {/* code */};
+
+...Is a shortcut for:
+
+	const foo = (function(args) {/* code */}).bind(this));
 	
-To concatenate strings with a separator (such as a space) you don't need a for loop either. You can use Array.join().
+For example, the second line here would not work:
+
+	const callback = someobject.somefunction;
+	loader.load(callback);
+
+And you would have to solve it like this:
+
+	const callback = someobject.somefunction.bind(someobject);
+	loader.load(callback);
+
+The problem with forgetting a bind exists because `this` works differently depending on how you called a function. It works fine when called with . notation (such as someobject.somefunction), but without . notation (such as load(callback)) your `this` becomes null by default.
+
+According to official documentation, arrow functions retain the `this` value of the enclosing lexical context: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
+
+#### Arrays
+	
+To concatenate strings with a separator (such as a space) you don't need a for loop. You can use Array.join().
 
 	const sentence = wordsArray => wordsArray.join(' ');
 	
-In a for loop used to fill an empty array, you don't have to specify the index within the loop because you can just use the push method to keep adding items:
+To sum up the values in an array you don't need a for loop either. The reduce method takes up a single line:
+
+    return numbersArray.reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+	
+In a for loop used to fill an empty array, you don't have to specify the index within the loop (as one might do in a language such as C#) because you can just use the push method to keep adding items:
 
     var arr = [];
     for (i = 1; i <= 10; i++) {
